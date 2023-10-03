@@ -1,21 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { List } from "../../Components/List/List";
 import { useParams } from "react-router-dom";
 import "./products.scss";
 import { useFetch } from "../../Hooks/useFetch";
+import { ImageHelper } from "../../Helper/ImageHelper";
+import { Box, Slider } from "@mui/material";
+import { PaginationContainer } from "../../Components/Pagination/Pagination";
+import { QuerySubCategories } from "../../Utils/queryBilder";
 
 export const Products = () => {
-  const [maxPrice, setMaxPrice] = useState<number>(1000);
+  const min = 1;
+  const max = 500;
+  const [debouncedValue, setDebouncedValue] = useState<number[]>([min, max]);
+  const [rangeValue, setRangeValue] = useState<number[]>([min, max]);
   const [sort, setSort] = useState<string | null>(null);
   const [selectSubCatg, setSelectSubCatg] = useState<number[]>([]);
   const params = useParams();
   const catId = +params.id!;
 
-  const { dataCategories, loading } = useFetch(
-    `/sub-categories?filters[categories][id][$eq]=${catId}`
-  );
+  useEffect(() => {
+    const debounceTimer = setTimeout(() => {
+      setDebouncedValue(rangeValue);
+    }, 1000);
+    return () => {
+      clearTimeout(debounceTimer);
+    };
+  }, [rangeValue]);
 
-  const handleChangeCateg = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const { subCategories } = QuerySubCategories(catId);
+  const { dataCategories, loading } = useFetch(subCategories);
+
+  const { handleChangeCatgImg } = ImageHelper(catId);
+
+  const handleChangeCatg = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = +event.target.value;
     const isChecked = event.target.checked;
 
@@ -26,12 +43,10 @@ export const Products = () => {
     }
   };
 
-  const handleChangeMaxPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const numValue = +event.target.value;
-    setMaxPrice(numValue);
+  const handleChangeRange = (event: Event, newValue: number | number[]) => {
+    setRangeValue(newValue as number[]);
   };
-  console.log(sort);
-
+  const handleChangePage = () => {};
   return (
     <div className="products">
       <div className="left">
@@ -44,7 +59,7 @@ export const Products = () => {
                 id={item.id}
                 name={item.attributes.title}
                 value={item.id}
-                onChange={handleChangeCateg}
+                onChange={handleChangeCatg}
               />
               <label htmlFor={item.id}>{item.attributes.title}</label>
             </div>
@@ -53,14 +68,17 @@ export const Products = () => {
         <div className="filterItem">
           <h2>Filter by price</h2>
           <div className="inputItem">
-            <span>0</span>
-            <input
-              type="range"
-              min={0}
-              max={1000}
-              onChange={handleChangeMaxPrice}
-            />
-            <span>{maxPrice}</span>
+            <Box sx={{ width: 220 }}>
+              <Slider
+                min={min}
+                max={max}
+                value={rangeValue}
+                onChange={handleChangeRange}
+              />
+            </Box>
+            <span className="range">
+              {rangeValue[0]}€ - {rangeValue[1]}€
+            </span>
           </div>
         </div>
 
@@ -89,19 +107,20 @@ export const Products = () => {
         </div>
       </div>
       <div className="right">
-        <img
-          className="img"
-          src="https://images.pexels.com/photos/17926802/pexels-photo-17926802/free-photo-of-black-and-white-photo-of-man-reading-magazine-on-bench.png?auto=compress&cs=tinysrgb&w=1600"
-          alt=""
-        />
-        {
+        <img className="img" src={handleChangeCatgImg()} alt="" />
+        {loading ? (
+          "...loading"
+        ) : (
           <List
             catId={catId}
-            maxPrice={maxPrice}
+            minPirce={debouncedValue[0]}
+            maxPrice={debouncedValue[1]}
             sort={sort}
             selectSubCatg={selectSubCatg}
           />
-        }
+        )}
+
+        <PaginationContainer count={3} handleChangePage={handleChangePage} />
       </div>
     </div>
   );

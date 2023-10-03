@@ -1,34 +1,32 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Products } from "../Pages/Products/Products";
 import { About } from "../Pages/About/About";
 import { Contact } from "../Pages/Contact/Contact";
 import { Stores } from "../Pages/Stores/Stores";
 import { Home } from "../Pages/Home/Home";
-import { Routes } from "./Routes";
+import { routes } from "./Routes";
 import { Product } from "../Pages/Product/Product";
 import { Layout } from "../Layout/Layout";
-
-const router = createBrowserRouter([
-  {
-    path: Routes.HOME,
-    element: <Layout />,
-    children: [
-      { path: Routes.HOME, element: <Home /> },
-      {
-        path: Routes.Products,
-        element: <Products />,
-      },
-      {
-        path: Routes.Product,
-        element: <Product />,
-      },
-      { path: Routes.About, element: <About /> },
-      { path: Routes.Contact, element: <Contact /> },
-      { path: Routes.Stores, element: <Stores /> },
-    ],
-  },
-]);
+import { Login } from "../Pages/Login/Login";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Protector } from "../Helper/LoginHelper";
 
 export const Router = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <BrowserRouter>
+      <ToastContainer />
+      <Routes>
+        <Route path={routes.LOGIN} element={<Login />} />
+        <Route path={routes.HOME} element={<Layout />}>
+          <Route path={routes.HOME} element={<Protector Component={Home} />} />
+          <Route path={routes.Products} element={<Products />} />
+          <Route path={routes.Product} element={<Product />} />
+          <Route path={routes.About} element={<About />} />
+          <Route path={routes.Contact} element={<Contact />} />
+          <Route path={routes.Stores} element={<Stores />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 };

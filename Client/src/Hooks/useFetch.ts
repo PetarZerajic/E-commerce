@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react";
 import { IProdcuts } from "../Interfaces/products";
-import { makeRequest } from "../Constants/makeRequest";
 import { ICategories } from "../Interfaces/categories";
+import axios from "axios";
+
+const makeRequest = axios.create({
+  baseURL: process.env.REACT_APP_URL,
+  headers: {
+    Authorization: `Bearer ${process.env.REACT_APP_API_TOKEN}`,
+  },
+});
 
 export const useFetch = (url: string) => {
   const [dataProducts, setDataProducts] = useState<IProdcuts[]>([]);
-  const [data, setData] = useState<IProdcuts|null>(null);
+  const [data, setData] = useState<IProdcuts>();
   const [dataCategories, setDataCategories] = useState<ICategories[]>([]);
 
   const [loading, setLoading] = useState(false);
@@ -17,8 +24,7 @@ export const useFetch = (url: string) => {
         setLoading(true);
         const response = await makeRequest.get(url);
         setData(response.data.data);
-        setDataProducts(Array.isArray(response.data.data) ?response.data.data:[])
-        // setDataProducts(response.data.data);
+        setDataProducts(response.data.data);
         setDataCategories(response.data.data);
       } catch (error) {
         setError(true);
@@ -28,5 +34,11 @@ export const useFetch = (url: string) => {
     fetchData();
   }, [url]);
 
-  return { data, dataProducts, dataCategories, loading, error };
+  return {
+    data,
+    dataProducts,
+    dataCategories,
+    loading,
+    error,
+  };
 };

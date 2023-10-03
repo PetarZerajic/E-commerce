@@ -8,14 +8,16 @@ interface IImage {
 }
 
 export interface IProdcuts {
-  id: number;
+  id?: number;
   attributes: {
     title: string;
     img: IImage;
     img2: IImage;
+    img3: IImage;
     isNew?: boolean;
     oldPrice: number;
     price: number;
-    desc:string
-  }
+    desc: string;
+  };
+  quantity: number;
 }

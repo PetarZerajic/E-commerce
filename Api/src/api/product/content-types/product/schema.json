@@ -66,6 +66,20 @@
         "featured",
         "trending"
       ]
+    },
+    "img3": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "oldPrice": {
+      "type": "decimal"
     }
   }
 }

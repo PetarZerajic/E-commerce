@@ -17,9 +17,36 @@
       margin-bottom: 10px;
       input {
         cursor: pointer;
+        border-radius: 12px;
       }
       label {
+        text-transform: capitalize;
+        font-family: sans-serif;
         margin-left: 10px;
+      }
+      input:checked + label {
+        font-weight: 600;
+      }
+
+      .MuiSlider-rail {
+        background: rgba(0, 74, 128, 0.3);
+      }
+      .MuiSlider-track {
+        background: #022343;
+        height: 2.5px;
+      }
+      .MuiSlider-thumb {
+        height: 16px;
+        width: 16px;
+        background: #1b659a;
+      }
+      .range {
+        font-family: sans-serif;
+        width: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 500;
       }
     }
   }

@@ -1,13 +1,15 @@
 import { Card } from "../Card/Card";
 import "./featuredProducts.scss";
 import { useFetch } from "../../Hooks/useFetch";
+import { QueryFeaturedProducts } from "../../Utils/queryBilder";
+
 interface Props {
   type: string;
 }
-export const FeaturedProducts = ({ type }: Props) => {
-  const { dataProducts, loading, error } = useFetch(
-    `/products?populate=*&filters[type][$eq]=${type}`
-  );
+export const FeaturedProducts = (props: Props) => {
+  const { type } = props;
+  const { featuredProducts } = QueryFeaturedProducts(props);
+  const { dataProducts, loading, error } = useFetch(featuredProducts);
   return (
     <div className="feature-products">
       <div className="top-side">
