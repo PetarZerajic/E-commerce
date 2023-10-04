@@ -2,6 +2,10 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserProps } from "../Interfaces/user";
 
+interface IProps {
+  Component: React.ComponentType<any>;
+}
+
 export const storeUser = (data: UserProps) => {
   localStorage.setItem(
     "user",
@@ -12,12 +16,12 @@ export const storeUser = (data: UserProps) => {
   );
 };
 
-export const userData = () => {
+const userData = () => {
   const stringifiedUser = localStorage.getItem("user") || "{}";
   return JSON.parse(stringifiedUser);
 };
 
-export const Protector = ({ Component }: any) => {
+export const Protector = ({ Component }: IProps) => {
   const navigate = useNavigate();
 
   const { jwt } = userData();

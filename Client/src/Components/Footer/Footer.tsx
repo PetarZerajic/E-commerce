@@ -1,15 +1,7 @@
-import { Link, animateScroll } from "react-scroll";
-import ArrowUpwardOutlinedIcon from "@mui/icons-material/ArrowUpwardOutlined";
 import payment from "../../Assets/payment.png";
 import "./footer.scss";
 
 export const Footer = () => {
-  const handleScrollToTop = () => {
-    animateScroll.scrollToTop({
-      duration: 500,
-      smooth: true,
-    });
-  };
   return (
     <div className="footer">
       <div className="top-section">
@@ -61,13 +53,7 @@ export const Footer = () => {
             © Copyright 2023.All Rights Reserved
           </span>
         </div>
-        <div className="center">
-          <span className="go-to-top">
-            <Link className="icon" to="top" onClick={handleScrollToTop}>
-              <ArrowUpwardOutlinedIcon />
-            </Link>
-          </span>
-        </div>
+
         <div className="right-side">
           <img className="img" src={payment} alt="" />
         </div>

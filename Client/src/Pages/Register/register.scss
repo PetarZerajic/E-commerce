@@ -1,13 +1,13 @@
-body.login-bg {
+body.register-bg {
   background-color: #020024;
 }
 
-.login {
+.register {
   display: flex;
-  min-height: 100vh;
   justify-content: center;
   align-items: center;
   gap: 20px;
+  min-height: 100vh;
   background: linear-gradient(
     90deg,
     rgba(2, 0, 36, 0) 20%,
@@ -37,7 +37,8 @@ body.login-bg {
     span {
       display: flex;
       justify-content: center;
-      .login-button {
+
+      .register-button {
         border: none;
         background-color: rgb(40, 40, 204);
         color: white;
@@ -46,15 +47,6 @@ body.login-bg {
         padding: 10px;
         font-size: 16px;
         cursor: pointer;
-      }
-    }
-    small {
-      display: flex;
-      justify-content: center;
-      color: #ddd;
-
-      .link {
-        color: white;
       }
     }
   }

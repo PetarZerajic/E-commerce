@@ -1,56 +1,49 @@
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import "./register.scss";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { storeUser } from "../../Helper/LoginHelper";
 import { toast } from "react-toastify";
-import "./login.scss";
 import { Routes } from "../../Router/Routes";
 
-export const Login = () => {
-  const initialUser = {
-    identifier: "",
-    password: "",
-  };
-
+const initialUser = {
+  username: "",
+  email: "",
+  password: "",
+};
+export const Register = () => {
   const [user, setUser] = useState(initialUser);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // add class on body login page when component is mounted
-    document.body.classList.add("login-bg");
-
-    // remove class on body login page when component is demounted
+    document.body.classList.add("register-bg");
     return () => {
-      document.body.classList.remove("login-bg");
+      document.body.classList.remove("register-bg");
     };
   }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const name = event.target.name;
     const value = event.target.value;
+
     setUser((currentUser) => ({
       ...currentUser,
       [name]: value,
     }));
   };
-
-  const handleLogin = async (event: React.FormEvent) => {
+  const handleRegister = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const url = `${process.env.REACT_APP_URL}/auth/local`;
-
+    const url = `${process.env.REACT_APP_URL}/auth/local/register`;
     try {
-      if (user.identifier && user.password) {
+      if (user.username && user.email && user.password) {
         const response = await axios.post(url, user);
-        const { data } = response;
 
-        if (data.jwt) {
-          storeUser(data);
-          toast.success("Logged in successfully!", {
+        if (response) {
+          toast.success("Registered successfully!", {
             hideProgressBar: false,
           });
           setUser(initialUser);
-          navigate(Routes.HOME);
+          navigate(Routes.LOGIN);
         }
       }
     } catch (error: any) {
@@ -62,15 +55,24 @@ export const Login = () => {
 
   return (
     <>
-      <div className="login">
+      <div className="register">
         <form className="form">
-          <h2>Login:</h2>
+          <h2>Sign up:</h2>
+          <input
+            type="text"
+            name="username"
+            value={user.username}
+            onChange={handleChange}
+            placeholder="Enter your full name"
+            required
+          />
           <input
             type="email"
-            name="identifier"
-            value={user.identifier}
+            name="email"
+            value={user.email}
             onChange={handleChange}
             placeholder="Enter your email"
+            required
           />
           <input
             type="password"
@@ -78,22 +80,17 @@ export const Login = () => {
             value={user.password}
             onChange={handleChange}
             placeholder="Enter password"
+            required
           />
           <span>
             <button
               type="submit"
-              className="login-button"
-              onClick={handleLogin}
+              className="register-button"
+              onClick={handleRegister}
             >
-              Login
+              Sign up
             </button>
           </span>
-
-          <small>
-            <Link className="link" to={Routes.REGISTER}>
-              Don't have an account ? Register here.
-            </Link>
-          </small>
         </form>
       </div>
     </>
