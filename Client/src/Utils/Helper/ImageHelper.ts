@@ -5,7 +5,7 @@ import {
   sale,
   newSeason,
   shoes,
-} from "../Constants/productsImg";
+} from "../../Constants/productsImg";
 
 export const ImageHelper = (catId: number) => {
   const handleChangeCatgImg = () => {

@@ -1,21 +1,19 @@
-import "./navbar.scss";
 import en from "../../Assets/en.png";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import SearchIcon from "@mui/icons-material/Search";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { Cart } from "../Cart/Cart";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/Store/Store";
+import { Routes } from "../../Router/Routes";
+import "./navbar.scss";
 
 export const Navbar = () => {
-  const [open, setOpen] = useState<boolean>(false);
   const products = useSelector((state: RootState) => state.cart.products);
-  const handleOpenCart = () => {
-    setOpen(!open);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
   };
   return (
     <>
@@ -48,43 +46,39 @@ export const Navbar = () => {
             </div>
           </div>
           <div className="center">
-            <Link className="link" to="/">
+            <Link className="link" to={Routes.HOME}>
               E-commercio
             </Link>
           </div>
           <div className="right-side">
             <div className="item">
-              <Link className="link" to="/">
+              <Link className="link" to={Routes.HOME}>
                 Homepage
               </Link>
             </div>
             <div className="item">
-              <Link className="link" to="/about">
-                About
-              </Link>
-            </div>
-            <div className="item">
-              <Link className="link" to="/contact">
-                Contact
-              </Link>
-            </div>
-            <div className="item">
-              <Link className="link" to="/stores">
+              <Link className="link" to={Routes.Stores}>
                 Stores
               </Link>
             </div>
             <div className="icons">
-              <SearchIcon />
-              <PersonOutlinedIcon />
               <FavoriteBorderOutlinedIcon />
-              <div className="cart-icon" onClick={handleOpenCart}>
-                <ShoppingCartOutlinedIcon />
+              <div className="cart-icon">
+                <Link to={Routes.Cart}>
+                  <ShoppingCartOutlinedIcon />
+                </Link>
                 <span>{products.length}</span>
               </div>
             </div>
+            <div className="item">
+              <Link className="link" to={Routes.LOGIN}>
+                <button className="logout" onClick={handleLogout}>
+                  Logout
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
-        {open && <Cart />}
       </div>
     </>
   );

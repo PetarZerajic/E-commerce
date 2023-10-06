@@ -3,12 +3,23 @@ import { List } from "../../Components/List/List";
 import { useParams } from "react-router-dom";
 import "./products.scss";
 import { useFetch } from "../../Hooks/useFetch";
-import { ImageHelper } from "../../Helper/ImageHelper";
+import { ImageHelper } from "../../Utils/Helper/ImageHelper";
 import { Box, Slider } from "@mui/material";
-import { PaginationContainer } from "../../Components/Pagination/Pagination";
-import { QuerySubCategories } from "../../Utils/queryBilder";
+
+import { QueryProducts, QuerySubCategories } from "../../Utils/queryBilder";
+import { ErrorPage } from "../../Error/ErrorPage";
+import { Pagination } from "../../Components/Pagination/Pagination";
+import { QueryProductsProps } from "../../Interfaces/query";
 
 export const Products = () => {
+  type props2 = QueryProductsProps;
+  const props: props2 = {
+    selectSubCatg: [],
+    catId: 0,
+    minPirce: 0,
+    maxPrice: 0,
+    sort: null,
+  };
   const min = 1;
   const max = 500;
   const [debouncedValue, setDebouncedValue] = useState<number[]>([min, max]);
@@ -28,7 +39,7 @@ export const Products = () => {
   }, [rangeValue]);
 
   const { subCategories } = QuerySubCategories(catId);
-  const { dataCategories, loading } = useFetch(subCategories);
+  const { dataCategories, loading, error } = useFetch(subCategories);
 
   const { handleChangeCatgImg } = ImageHelper(catId);
 
@@ -46,7 +57,7 @@ export const Products = () => {
   const handleChangeRange = (event: Event, newValue: number | number[]) => {
     setRangeValue(newValue as number[]);
   };
-  const handleChangePage = () => {};
+
   return (
     <div className="products">
       <div className="left">
@@ -108,8 +119,9 @@ export const Products = () => {
       </div>
       <div className="right">
         <img className="img" src={handleChangeCatgImg()} alt="" />
+        {error && <ErrorPage />}
         {loading ? (
-          "...loading"
+          <h2>...Loading</h2>
         ) : (
           <List
             catId={catId}
@@ -119,8 +131,6 @@ export const Products = () => {
             selectSubCatg={selectSubCatg}
           />
         )}
-
-        <PaginationContainer count={3} handleChangePage={handleChangePage} />
       </div>
     </div>
   );

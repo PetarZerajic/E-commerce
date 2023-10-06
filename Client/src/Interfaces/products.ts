@@ -18,6 +18,7 @@ export interface IProdcuts {
     oldPrice: number;
     price: number;
     desc: string;
+    total: number;
   };
   quantity: number;
 }

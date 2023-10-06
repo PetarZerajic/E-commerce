@@ -23,10 +23,12 @@ export const FeaturedProducts = (props: Props) => {
       </div>
       <div className="bottom-side">
         <>
-          {error && "Something went wrong!"}
-          {loading
-            ? "loading..."
-            : dataProducts.map((item) => <Card key={item.id} item={item} />)}
+          {error && <h2>Woops! Something went wrong. Please try again</h2>}
+          {loading ? (
+            <h2>...Loading</h2>
+          ) : (
+            dataProducts.map((item) => <Card key={item.id} item={item} />)
+          )}
         </>
       </div>
     </div>

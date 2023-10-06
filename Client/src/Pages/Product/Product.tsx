@@ -47,8 +47,10 @@ export const Product = () => {
 
   return (
     <>
-      <div className="product">
-        <>
+      {loading ? (
+        "...loading"
+      ) : (
+        <div className="product">
           <div className="left">
             <div className="images">
               <img src={image} alt="" onClick={() => setSelectImage("img")} />
@@ -97,8 +99,8 @@ export const Product = () => {
               <span>FAQ</span>
             </div>
           </div>
-        </>
-      </div>
+        </div>
+      )}
     </>
   );
 };

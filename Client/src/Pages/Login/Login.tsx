@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { storeUser } from "../../Helper/LoginHelper";
+import { setUserToken } from "../../Utils/Helper/LoginHelper";
 import { toast } from "react-toastify";
-import "./login.scss";
 import { Routes } from "../../Router/Routes";
+import { LoginValidation } from "../../Utils/Helper/LoginValidation";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import "./login.scss";
 
 export const Login = () => {
   const initialUser = {
@@ -12,6 +14,7 @@ export const Login = () => {
     password: "",
   };
 
+  const { schema } = LoginValidation();
   const [user, setUser] = useState(initialUser);
   const navigate = useNavigate();
 
@@ -25,76 +28,79 @@ export const Login = () => {
     };
   }, []);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setUser((currentUser) => ({
-      ...currentUser,
-      [name]: value,
-    }));
-  };
-
-  const handleLogin = async (event: React.FormEvent) => {
-    event.preventDefault();
-
-    const url = `${process.env.REACT_APP_URL}/auth/local`;
-
-    try {
-      if (user.identifier && user.password) {
-        const response = await axios.post(url, user);
-        const { data } = response;
-
-        if (data.jwt) {
-          storeUser(data);
-          toast.success("Logged in successfully!", {
-            hideProgressBar: false,
-          });
-          setUser(initialUser);
-          navigate(Routes.HOME);
-        }
-      }
-    } catch (error: any) {
-      toast.error(error.message, {
-        hideProgressBar: false,
-      });
-    }
-  };
-
   return (
     <>
       <div className="login">
-        <form className="form">
-          <h2>Login:</h2>
-          <input
-            type="email"
-            name="identifier"
-            value={user.identifier}
-            onChange={handleChange}
-            placeholder="Enter your email"
-          />
-          <input
-            type="password"
-            name="password"
-            value={user.password}
-            onChange={handleChange}
-            placeholder="Enter password"
-          />
-          <span>
-            <button
-              type="submit"
-              className="login-button"
-              onClick={handleLogin}
-            >
-              Login
-            </button>
-          </span>
+        <Formik
+          initialValues={initialUser}
+          onSubmit={async (values) => {
+            const url = `${process.env.REACT_APP_URL}/auth/local`;
 
-          <small>
-            <Link className="link" to={Routes.REGISTER}>
-              Don't have an account ? Register here.
-            </Link>
-          </small>
-        </form>
+            try {
+              if (values.identifier && values.password) {
+                const response = await axios.post(url, values);
+                const { data } = response;
+
+                if (data.jwt) {
+                  setUserToken(data);
+                  toast.success("Logged in successfully!", {
+                    hideProgressBar: false,
+                  });
+                  setUser(initialUser);
+                  navigate(Routes.HOME);
+                }
+              }
+            } catch (error: any) {
+              toast.error(error.message, {
+                hideProgressBar: false,
+              });
+            }
+          }}
+          validationSchema={schema}
+        >
+          {({ values, handleChange, handleSubmit, isValid, dirty }) => (
+            <Form className="form" onSubmit={handleSubmit}>
+              <h2>Login:</h2>
+              <Field
+                type="email"
+                name="identifier"
+                value={values.identifier}
+                onChange={handleChange}
+                placeholder="Enter a email"
+              />
+
+              <div className="error">
+                <ErrorMessage name="identifier" />
+              </div>
+              <Field
+                type="password"
+                name="password"
+                value={values.password}
+                onChange={handleChange}
+                placeholder="Enter a password"
+              />
+              <div className="error">
+                <ErrorMessage name="password" />
+              </div>
+
+              <button
+                type="submit"
+                className={`login-button ${
+                  !isValid || !dirty ? "disabled" : ""
+                }`}
+                disabled={!(isValid && dirty)}
+              >
+                Login
+              </button>
+
+              <small>
+                <Link className="link" to={Routes.REGISTER}>
+                  Don't have an account ? Register here.
+                </Link>
+              </small>
+            </Form>
+          )}
+        </Formik>
       </div>
     </>
   );

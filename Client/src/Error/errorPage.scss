@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  justify-content: center;
+  img {
+    width: 100vh;
+    object-fit: contain;
+    height: 50vh;
+    margin-bottom: 50px;
+  }
+}

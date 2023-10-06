@@ -14,10 +14,11 @@ import { Product } from "../Pages/Product/Product";
 import { Layout } from "../Layout/Layout";
 import { Login } from "../Pages/Login/Login";
 import { ToastContainer } from "react-toastify";
-
-import "react-toastify/dist/ReactToastify.css";
-import { Protector } from "../Helper/LoginHelper";
+import { Protector } from "../Utils/Helper/LoginHelper";
 import { Register } from "../Pages/Register/Register";
+import { Cart } from "../Pages/Cart/Cart";
+import "react-toastify/dist/ReactToastify.css";
+import { CartLayout } from "../Layout/CartLayout";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,16 @@ const router = createBrowserRouter([
       {
         path: Routes.Stores,
         element: <Stores />,
+      },
+    ],
+  },
+  {
+    path: Routes.Cart,
+    element: <CartLayout />,
+    children: [
+      {
+        path: Routes.Cart,
+        element: <Cart />,
       },
     ],
   },

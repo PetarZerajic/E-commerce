@@ -1,21 +1,25 @@
-import { Pagination, Stack } from "@mui/material";
+import ReactPaginate from "react-paginate";
 import "./pagination.scss";
-interface Props {
-  count: number;
-  handleChangePage(): void;
+
+interface PaginationProps {
+  pageCount: number;
+  handlePageChange(selectedItem: { selected: number }): void;
 }
 
-export const PaginationContainer = ({ count, handleChangePage }: Props) => {
+export const Pagination = (props: PaginationProps) => {
+  const { pageCount, handlePageChange } = props;
+
   return (
-    <>
-      <Stack>
-        <Pagination
-          className="pagination"
-          count={count}
-          shape="rounded"
-          onClick={handleChangePage}
-        />
-      </Stack>
-    </>
+    <ReactPaginate
+      pageCount={pageCount}
+      onPageChange={handlePageChange}
+      containerClassName={"paginate"}
+      previousLinkClassName={"page"}
+      breakClassName={"page"}
+      nextLinkClassName={"page"}
+      pageClassName={"page"}
+      disabledClassName={"disabled"}
+      activeClassName={"active"}
+    />
   );
 };

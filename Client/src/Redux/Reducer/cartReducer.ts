@@ -3,9 +3,13 @@ import { IProdcuts } from "../../Interfaces/products";
 
 interface cartProps {
   products: IProdcuts[];
+  totalQuantity: number;
+  totalAmount: number;
 }
 const initialState: cartProps = {
   products: [],
+  totalQuantity: 0,
+  totalAmount: 0,
 };
 export const cartSlice = createSlice({
   name: "cart",
@@ -21,6 +25,34 @@ export const cartSlice = createSlice({
         state.products = [...state.products, action.payload];
       }
     },
+    increaseItem: (state, action) => {
+      const { id } = action.payload;
+      const item = state.products.find((item) => item.id === id)!;
+      if (item) {
+        item.quantity = item.quantity + 1;
+      }
+    },
+    decreaseItem: (state, action) => {
+      const { id } = action.payload;
+      const item = state.products.find((item) => item.id === id)!;
+      if (item) {
+        item.quantity = item.quantity - 1;
+      }
+    },
+    calculateTotals: (state) => {
+      let amount = 0;
+      let total = 0;
+      state.products.forEach((product) => {
+        const { price } = product.attributes;
+        const { quantity } = product;
+
+        amount += quantity;
+        total += quantity * price;
+      });
+
+      state.totalAmount = amount;
+      state.totalAmount = total;
+    },
     deleteItem: (state, action) => {
       state.products = state.products.filter(
         (item) => item.id !== action.payload.id
@@ -32,5 +64,12 @@ export const cartSlice = createSlice({
     },
   },
 });
-export const { addToCart, deleteItem, resetCart } = cartSlice.actions;
+export const {
+  addToCart,
+  deleteItem,
+  increaseItem,
+  decreaseItem,
+  calculateTotals,
+  resetCart,
+} = cartSlice.actions;
 export default cartSlice.reducer;
