@@ -22,10 +22,11 @@ import "./cart.scss";
 
 export const Cart = () => {
   const [loading, setIsLoading] = useState(false);
+  let [searchParams, setSearchParams] = useSearchParams();
+
   const products = useSelector((state: RootState) => state.cart.products);
   const cart = useSelector((state: RootState) => state.cart);
   const dispatch = useDispatch();
-  let [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     dispatch(calculateTotals());
@@ -36,7 +37,7 @@ export const Cart = () => {
       toast.error("Something went wrong.");
     }
   }, [cart.products]);
-  useEffect(() => {}, []);
+
   const handleRemoveFromCart = (id: number) => {
     dispatch(deleteItem({ id }));
   };
