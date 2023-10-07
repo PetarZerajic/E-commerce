@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { Routes } from "../../Router/Routes";
 import { LoginValidation } from "../../Utils/Helper/LoginValidation";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import "./login.scss";
 
 export const Login = () => {
@@ -14,8 +15,8 @@ export const Login = () => {
     password: "",
   };
 
-  const { schema } = LoginValidation();
   const [user, setUser] = useState(initialUser);
+  const [passwordShown, setPasswordShown] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,6 +28,10 @@ export const Login = () => {
       document.body.classList.remove("login-bg");
     };
   }, []);
+  const toggleViewPassword = () => {
+    setPasswordShown(!passwordShown);
+  };
+  const { schema } = LoginValidation();
 
   return (
     <>
@@ -73,18 +78,24 @@ export const Login = () => {
                 <ErrorMessage name="identifier" />
               </div>
               <Field
-                type="password"
+                type={passwordShown ? "text" : "password"}
                 name="password"
                 value={values.password}
                 onChange={handleChange}
                 placeholder="Enter a password"
               />
+
               <div className="error">
                 <ErrorMessage name="password" />
               </div>
-
               <button
-                type="submit"
+                type="button"
+                className="visibility"
+                onClick={toggleViewPassword}
+              >
+                <VisibilityIcon />
+              </button>
+              <button
                 className={`login-button ${
                   !isValid || !dirty ? "disabled" : ""
                 }`}

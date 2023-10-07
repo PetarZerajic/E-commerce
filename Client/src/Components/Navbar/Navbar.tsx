@@ -64,7 +64,7 @@ export const Navbar = () => {
             <div className="icons">
               <FavoriteBorderOutlinedIcon />
               <div className="cart-icon">
-                <Link to={Routes.Cart}>
+                <Link to={Routes.Cart} className="link">
                   <ShoppingCartOutlinedIcon />
                 </Link>
                 <span>{products.length}</span>

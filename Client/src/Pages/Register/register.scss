@@ -38,6 +38,12 @@ body.register-bg {
       background: #f2f2f2;
       border: none;
     }
+    .visibility {
+      display: flex;
+      background-color: white;
+      border: none;
+      cursor: pointer;
+    }
     input:focus {
       background: #dbdbdb;
     }

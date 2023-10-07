@@ -10,10 +10,12 @@ import {
   decreaseItem,
 } from "../../Redux/Reducer/cartReducer";
 import { Link } from "react-router-dom";
-import { IProdcuts } from "../../Interfaces/products";
+
 import ArrowRightAltOutlinedIcon from "@mui/icons-material/ArrowRightAltOutlined";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import emptyCart from "../../Assets/emptyCart.jpg";
+import { loadStripe } from "@stripe/stripe-js";
+import { makeRequest } from "../../Hooks/useFetch";
 import "./cart.scss";
 export const Cart = () => {
   const dispatch = useDispatch();
@@ -24,8 +26,8 @@ export const Cart = () => {
     dispatch(calculateTotals());
   }, [cart.products]);
 
-  const handleRemoveFromCart = (product: IProdcuts) => {
-    dispatch(deleteItem(product));
+  const handleRemoveFromCart = (id: number) => {
+    dispatch(deleteItem({ id }));
   };
   const handleClearCart = () => {
     dispatch(resetCart());
@@ -35,6 +37,22 @@ export const Cart = () => {
   };
   const handleDecreaseAmount = (id: number) => {
     dispatch(decreaseItem({ id }));
+  };
+  const stripePromise = loadStripe(
+    "pk_test_51NyYzFL2GClIm5Y5166ptaF8b2ZHyFmKqw5RokAs2kmyJiH58MQNOJqX7JLtISLVhjgG2WJA6mANkEGe2zxTWSep00CoV8oeFH"
+  );
+  const handlePayment = async () => {
+    try {
+      const stripe = await stripePromise;
+      const response = await makeRequest.post("/orders", {
+        products,
+      });
+      await stripe?.redirectToCheckout({
+        sessionId: response.data.stripeSession.id,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="cart-container">
@@ -72,7 +90,7 @@ export const Cart = () => {
                     <div>
                       <h3>{item.attributes.title}</h3>
                       <p>{item.attributes.desc}</p>
-                      <button onClick={() => handleRemoveFromCart(item)}>
+                      <button onClick={() => handleRemoveFromCart(item.id!)}>
                         <DeleteOutlineOutlinedIcon
                           sx={{ fontSize: "28px", color: "crimson" }}
                         />
@@ -107,7 +125,7 @@ export const Cart = () => {
                 <span className="amount">${cart.totalAmount.toFixed(2)}</span>
               </div>
               <p>Taxes and shipping calculated at checkout</p>
-              <button>Check out</button>
+              <button onClick={handlePayment}>PROCEED TO CHECKOUT</button>
               <div className="continue-shopping">
                 <Link to="/">
                   <ArrowRightAltOutlinedIcon />

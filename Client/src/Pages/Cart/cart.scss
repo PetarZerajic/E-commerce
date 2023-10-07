@@ -16,8 +16,8 @@
     }
   }
 
-  & .cart-item,
-  & .titles {
+  .cart-item,
+  .titles {
     display: grid;
     align-items: center;
     grid-template-columns: 3fr 1fr 1fr 1fr;

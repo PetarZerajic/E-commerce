@@ -5,21 +5,10 @@ import "./products.scss";
 import { useFetch } from "../../Hooks/useFetch";
 import { ImageHelper } from "../../Utils/Helper/ImageHelper";
 import { Box, Slider } from "@mui/material";
-
-import { QueryProducts, QuerySubCategories } from "../../Utils/queryBilder";
+import { QuerySubCategories } from "../../Utils/queryBilder";
 import { ErrorPage } from "../../Error/ErrorPage";
-import { Pagination } from "../../Components/Pagination/Pagination";
-import { QueryProductsProps } from "../../Interfaces/query";
 
 export const Products = () => {
-  type props2 = QueryProductsProps;
-  const props: props2 = {
-    selectSubCatg: [],
-    catId: 0,
-    minPirce: 0,
-    maxPrice: 0,
-    sort: null,
-  };
   const min = 1;
   const max = 500;
   const [debouncedValue, setDebouncedValue] = useState<number[]>([min, max]);

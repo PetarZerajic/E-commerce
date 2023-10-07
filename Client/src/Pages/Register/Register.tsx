@@ -4,8 +4,9 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { Routes } from "../../Router/Routes";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import "./register.scss";
 import { registerValidation } from "../../Utils/Helper/RegisterValidation";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import "./register.scss";
 
 const initialUser = {
   username: "",
@@ -14,6 +15,7 @@ const initialUser = {
 };
 export const Register = () => {
   const [user, setUser] = useState(initialUser);
+  const [passwordShown, setPasswordShown] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,6 +24,11 @@ export const Register = () => {
       document.body.classList.remove("register-bg");
     };
   }, []);
+
+  const toggleViewPassword = () => {
+    setPasswordShown(!passwordShown);
+  };
+
   const { schema } = registerValidation();
   return (
     <>
@@ -75,16 +82,23 @@ export const Register = () => {
               </div>
 
               <Field
-                type="password"
+                type={passwordShown ? "text" : "password"}
                 name="password"
                 value={values.password}
                 onChange={handleChange}
-                placeholder="Enter password"
+                placeholder="Enter a password"
               />
+
               <div className="error">
                 <ErrorMessage name="password" />
               </div>
-
+              <button
+                type="button"
+                className="visibility"
+                onClick={toggleViewPassword}
+              >
+                <VisibilityIcon />
+              </button>
               <button
                 type="submit"
                 className={`register-button ${

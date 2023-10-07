@@ -28,7 +28,6 @@ export const List = (props: ListProps) => {
   const startIndex = currentPage * productsPerPage;
   const endIndex = startIndex + productsPerPage;
   const currentProducts = dataProducts.slice(startIndex, endIndex);
-
   const handlePageChange = (selectedItem: { selected: number }) => {
     setCurrentPage(selectedItem.selected);
   };

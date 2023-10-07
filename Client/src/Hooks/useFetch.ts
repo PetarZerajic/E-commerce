@@ -3,7 +3,7 @@ import { IProdcuts } from "../Interfaces/products";
 import { ICategories } from "../Interfaces/categories";
 import axios from "axios";
 
-const makeRequest = axios.create({
+export const makeRequest = axios.create({
   baseURL: process.env.REACT_APP_URL,
   headers: {
     Authorization: `Bearer ${process.env.REACT_APP_API_TOKEN}`,
