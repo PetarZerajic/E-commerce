@@ -22,11 +22,6 @@ export const Navbar = () => {
           <div className="left-side">
             <div className="item">
               <img className="img" src={en} alt="" />
-              <KeyboardArrowDownIcon className="icon" />
-            </div>
-            <div className="item">
-              <span>USD</span>
-              <KeyboardArrowDownIcon className="icon" />
             </div>
 
             <div className="item">
@@ -54,6 +49,11 @@ export const Navbar = () => {
             <div className="item">
               <Link className="link" to={Routes.HOME}>
                 Homepage
+              </Link>
+            </div>
+            <div className="item">
+              <Link className="link" to={Routes.Contact}>
+                Contact
               </Link>
             </div>
             <div className="item">

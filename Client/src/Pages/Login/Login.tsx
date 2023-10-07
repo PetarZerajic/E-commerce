@@ -7,6 +7,7 @@ import { Routes } from "../../Router/Routes";
 import { LoginValidation } from "../../Utils/Helper/LoginValidation";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import "./login.scss";
 
 export const Login = () => {
@@ -77,24 +78,26 @@ export const Login = () => {
               <div className="error">
                 <ErrorMessage name="identifier" />
               </div>
-              <Field
-                type={passwordShown ? "text" : "password"}
-                name="password"
-                value={values.password}
-                onChange={handleChange}
-                placeholder="Enter a password"
-              />
+              <div className="password-container">
+                <Field
+                  type={passwordShown ? "text" : "password"}
+                  name="password"
+                  value={values.password}
+                  onChange={handleChange}
+                  placeholder="Enter a password"
+                />
+                <button
+                  type="button"
+                  className="visibility"
+                  onClick={toggleViewPassword}
+                >
+                  {passwordShown ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                </button>
+              </div>
 
               <div className="error">
                 <ErrorMessage name="password" />
               </div>
-              <button
-                type="button"
-                className="visibility"
-                onClick={toggleViewPassword}
-              >
-                <VisibilityIcon />
-              </button>
               <button
                 className={`login-button ${
                   !isValid || !dirty ? "disabled" : ""

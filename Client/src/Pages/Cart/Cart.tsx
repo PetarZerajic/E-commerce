@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { RootState } from "../../Redux/Store/Store";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,23 +9,34 @@ import {
   increaseItem,
   decreaseItem,
 } from "../../Redux/Reducer/cartReducer";
-import { Link } from "react-router-dom";
-
+import { Link, useSearchParams } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
 import ArrowRightAltOutlinedIcon from "@mui/icons-material/ArrowRightAltOutlined";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import emptyCart from "../../Assets/emptyCart.jpg";
 import { loadStripe } from "@stripe/stripe-js";
 import { makeRequest } from "../../Hooks/useFetch";
+import { Routes } from "../../Router/Routes";
+import { toast } from "react-toastify";
 import "./cart.scss";
+
 export const Cart = () => {
-  const dispatch = useDispatch();
+  const [loading, setIsLoading] = useState(false);
   const products = useSelector((state: RootState) => state.cart.products);
   const cart = useSelector((state: RootState) => state.cart);
+  const dispatch = useDispatch();
+  let [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     dispatch(calculateTotals());
+    if (searchParams.get("success")) {
+      toast.success("Payment completed.");
+    }
+    if (searchParams.get("canceled")) {
+      toast.error("Something went wrong.");
+    }
   }, [cart.products]);
-
+  useEffect(() => {}, []);
   const handleRemoveFromCart = (id: number) => {
     dispatch(deleteItem({ id }));
   };
@@ -42,6 +53,7 @@ export const Cart = () => {
     "pk_test_51NyYzFL2GClIm5Y5166ptaF8b2ZHyFmKqw5RokAs2kmyJiH58MQNOJqX7JLtISLVhjgG2WJA6mANkEGe2zxTWSep00CoV8oeFH"
   );
   const handlePayment = async () => {
+    setIsLoading(true);
     try {
       const stripe = await stripePromise;
       const response = await makeRequest.post("/orders", {
@@ -50,6 +62,7 @@ export const Cart = () => {
       await stripe?.redirectToCheckout({
         sessionId: response.data.stripeSession.id,
       });
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -61,7 +74,7 @@ export const Cart = () => {
           <p>Your cart is currently empty</p>
           <img src={emptyCart} alt="" />
           <div className="start-shopping">
-            <Link to="/">
+            <Link to={Routes.HOME}>
               <ArrowBackOutlinedIcon />
               <span>Start Shopping</span>
             </Link>
@@ -98,7 +111,7 @@ export const Cart = () => {
                     </div>
                   </div>
                   <div className="cart-product-price">
-                    ${item.attributes.price}
+                    €{item.attributes.price}
                   </div>
                   <div className="cart-product-quantity">
                     <button onClick={() => handleDecreaseAmount(item.id!)}>
@@ -110,7 +123,7 @@ export const Cart = () => {
                     </button>
                   </div>
                   <div className="cart-product-total-price">
-                    ${item.attributes.price * item.quantity}
+                    €{item.attributes.price * item.quantity}
                   </div>
                 </div>
               ))}
@@ -125,9 +138,18 @@ export const Cart = () => {
                 <span className="amount">${cart.totalAmount.toFixed(2)}</span>
               </div>
               <p>Taxes and shipping calculated at checkout</p>
-              <button onClick={handlePayment}>PROCEED TO CHECKOUT</button>
+              <button
+                onClick={handlePayment}
+                className={loading ? "disabled-button" : ""}
+              >
+                {loading ? (
+                  <CircularProgress size="35px" />
+                ) : (
+                  "PROCEED TO CHECKOUT"
+                )}
+              </button>
               <div className="continue-shopping">
-                <Link to="/">
+                <Link to={Routes.HOME}>
                   <ArrowRightAltOutlinedIcon />
 
                   <span>Continue Shopping</span>

@@ -6,6 +6,7 @@ import { Routes } from "../../Router/Routes";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { registerValidation } from "../../Utils/Helper/RegisterValidation";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import "./register.scss";
 
 const initialUser = {
@@ -80,25 +81,26 @@ export const Register = () => {
               <div className="error">
                 <ErrorMessage name="email" />
               </div>
-
-              <Field
-                type={passwordShown ? "text" : "password"}
-                name="password"
-                value={values.password}
-                onChange={handleChange}
-                placeholder="Enter a password"
-              />
+              <div className="password-container">
+                <Field
+                  type={passwordShown ? "text" : "password"}
+                  name="password"
+                  value={values.password}
+                  onChange={handleChange}
+                  placeholder="Enter a password"
+                />
+                <button
+                  type="button"
+                  className="visibility"
+                  onClick={toggleViewPassword}
+                >
+                  {passwordShown ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                </button>
+              </div>
 
               <div className="error">
                 <ErrorMessage name="password" />
               </div>
-              <button
-                type="button"
-                className="visibility"
-                onClick={toggleViewPassword}
-              >
-                <VisibilityIcon />
-              </button>
               <button
                 type="submit"
                 className={`register-button ${
