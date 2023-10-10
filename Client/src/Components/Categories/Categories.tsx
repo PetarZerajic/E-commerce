@@ -1,26 +1,26 @@
-import "./categories.scss";
+import {
+  sale,
+  women,
+  new_seasson,
+  men,
+  children,
+  shoes,
+} from "../../Constants/cetegoriesimgs";
 import { Link } from "react-router-dom";
+import "./categories.scss";
 
 export const Categories = () => {
   return (
     <div className="categories">
       <div className="column">
         <div className="row">
-          <img
-            src="https://images.pexels.com/photos/5650020/pexels-photo-5650020.jpeg?auto=compress&cs=tinysrgb&w=1600"
-            alt=""
-          />
-
+          <img src={sale} alt="" />
           <Link className="link" to="/products/4">
             <button>Sale</button>
           </Link>
         </div>
         <div className="row">
-          <img
-            src="https://images.pexels.com/photos/1036622/pexels-photo-1036622.jpeg?auto=compress&cs=tinysrgb&w=1600"
-            alt=""
-          />
-
+          <img src={women} alt="" />
           <Link className="link" to="/products/1">
             <button>Women</button>
           </Link>
@@ -28,10 +28,7 @@ export const Categories = () => {
       </div>
       <div className="column">
         <div className="row">
-          <img
-            src="https://images.pexels.com/photos/6207069/pexels-photo-6207069.jpeg?auto=compress&cs=tinysrgb&w=1600"
-            alt=""
-          />
+          <img src={new_seasson} alt="" />
 
           <Link className="link" to="/products/5">
             <button>New Season</button>
@@ -42,10 +39,7 @@ export const Categories = () => {
         <div className="row">
           <div className="column">
             <div className="row">
-              <img
-                src="https://images.pexels.com/photos/1300402/pexels-photo-1300402.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
+              <img src={men} alt="" />
               <Link to="/products/2" className="link">
                 <button>Men</button>
               </Link>
@@ -53,22 +47,15 @@ export const Categories = () => {
           </div>
           <div className="column">
             <div className="row">
-              <img
-                src="https://images.pexels.com/photos/786220/pexels-photo-786220.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
+              <img src={children} alt="" />
               <Link to="/products/3">
                 <button>Children</button>
               </Link>
             </div>
           </div>
         </div>
-
         <div className="row">
-          <img
-            src="https://images.pexels.com/photos/9930070/pexels-photo-9930070.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt=""
-          />
+          <img src={shoes} alt="" />
 
           <Link to="/products/6" className="link">
             <button>Shoes </button>

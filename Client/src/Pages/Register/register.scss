@@ -68,8 +68,13 @@ body.register-bg {
     .register-button:active {
       background: #395591;
     }
-    .disabled {
-      opacity: 0.2;
+    .loading {
+      padding: 10px;
+      background: white;
+      height: 36px;
+      width: 50%;
+      border: none;
+      border-radius: 5px;
     }
     .error {
       margin-left: 10px;

@@ -79,11 +79,16 @@
       display: flex;
       gap: 20px;
       .item {
-        display: flex;
-        gap: 10px;
-        font-size: 14px;
-        color: #2879fe;
-        cursor: pointer;
+        button {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-size: 14px;
+          border: none;
+          background-color: white;
+          color: #2879fe;
+          cursor: pointer;
+        }
       }
     }
     .info {

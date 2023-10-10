@@ -1,6 +1,16 @@
 export interface ICategories {
-  id: any;
+  id: number;
   attributes: {
+    categories: {
+      data: [
+        {
+          attributes: {
+            title: string;
+            desc: string;
+          };
+        }
+      ];
+    };
     title: string;
   };
 }

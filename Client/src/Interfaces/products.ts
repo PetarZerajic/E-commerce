@@ -15,6 +15,7 @@ export interface IProdcuts {
     img2: IImage;
     img3: IImage;
     isNew?: boolean;
+    isSale?: boolean;
     oldPrice: number;
     price: number;
     desc: string;

@@ -7,20 +7,19 @@ interface CardProps {
 }
 export const Card = ({ item }: CardProps) => {
   const image =
-    process.env.REACT_APP_UPLOAD_URL +
-    item.attributes?.img?.data?.attributes?.url;
+    process.env.REACT_APP_UPLOAD_URL + item.attributes.img.data.attributes.url;
   const image2 =
-    process.env.REACT_APP_UPLOAD_URL +
-    item.attributes?.img2?.data?.attributes?.url;
+    process.env.REACT_APP_UPLOAD_URL + item.attributes.img2.data.attributes.url;
 
   return (
     <div>
       <Link className="link" to={`/product/${item.id}`}>
         <div className="card">
           <div className="images">
-            {item?.attributes.isNew && (
+            {item.attributes.isNew && (
               <span className="new-season">New Season</span>
             )}
+            {item.attributes.isSale && <span className="sale">Sale</span>}
             <img src={image} alt="" className="main-image" />
             <img src={image2} alt="" className="second-image" />
           </div>

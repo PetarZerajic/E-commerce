@@ -1,10 +1,9 @@
 import { QueryProducts } from "../../Utils/queryBilder";
 import { useFetch } from "../../Hooks/useFetch";
 import { Card } from "../Card/Card";
-import "./list.scss";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Pagination } from "../Pagination/Pagination";
-import { IProdcuts } from "../../Interfaces/products";
+import "./list.scss";
 
 interface ListProps {
   selectSubCatg: number[];

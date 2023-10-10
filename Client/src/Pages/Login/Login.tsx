@@ -9,6 +9,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import "./login.scss";
+import { Spinner } from "../../Components/Spinner/Spinner";
 
 export const Login = () => {
   const initialUser = {
@@ -17,6 +18,7 @@ export const Login = () => {
   };
 
   const [user, setUser] = useState(initialUser);
+  const [loading, setIsLoading] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
   const navigate = useNavigate();
 
@@ -41,7 +43,7 @@ export const Login = () => {
           initialValues={initialUser}
           onSubmit={async (values) => {
             const url = `${process.env.REACT_APP_URL}/auth/local`;
-
+            setIsLoading(true);
             try {
               if (values.identifier && values.password) {
                 const response = await axios.post(url, values);
@@ -53,6 +55,7 @@ export const Login = () => {
                     hideProgressBar: false,
                   });
                   setUser(initialUser);
+                  setIsLoading(false);
                   navigate(Routes.HOME);
                 }
               }
@@ -60,11 +63,14 @@ export const Login = () => {
               toast.error(error.message, {
                 hideProgressBar: false,
               });
+              setTimeout(() => {
+                setIsLoading(false);
+              }, 6000);
             }
           }}
           validationSchema={schema}
         >
-          {({ values, handleChange, handleSubmit, isValid, dirty }) => (
+          {({ values, handleChange, handleSubmit }) => (
             <Form className="form" onSubmit={handleSubmit}>
               <h2>Login:</h2>
               <Field
@@ -99,12 +105,10 @@ export const Login = () => {
                 <ErrorMessage name="password" />
               </div>
               <button
-                className={`login-button ${
-                  !isValid || !dirty ? "disabled" : ""
-                }`}
-                disabled={!(isValid && dirty)}
+                className={loading ? "loading" : "login-button"}
+                disabled={loading === true}
               >
-                Login
+                {loading ? <Spinner /> : "Login"}
               </button>
 
               <small>

@@ -1,15 +1,15 @@
 import { useState } from "react";
 import {
-  BalanceOutlined,
   ShoppingCartOutlined,
   FavoriteBorderOutlined,
 } from "@mui/icons-material";
 
 import "./product.scss";
 import { useFetch } from "../../Hooks/useFetch";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { addToCart } from "../../Redux/Reducer/cartReducer";
 import { useDispatch } from "react-redux";
+import { Routes } from "../../Router/Routes";
 
 type operation = "inc" | "dec";
 type initialImage = "img" | "img2" | "img3";
@@ -19,9 +19,8 @@ export const Product = () => {
   const [quantity, setQuantity] = useState<number>(0);
   const params = useParams();
   const id = +params.id!;
-  const prodcut = `${id}?populate=*`;
 
-  const { data, loading } = useFetch(`products/${prodcut}`);
+  const { data, dataCategory, loading } = useFetch(`products/${id}?populate=*`);
 
   const handleChangeQuantity = (operation: operation) => {
     if (operation === "inc") {
@@ -79,16 +78,19 @@ export const Product = () => {
             </button>
             <div className="links">
               <div className="item">
-                <FavoriteBorderOutlined /> ADD TO WISH LIST
-              </div>
-              <div className="item">
-                <BalanceOutlined /> ADD TO COMPARE
+                {/* To do: Add products to wishlist */}
+                <button>
+                  <FavoriteBorderOutlined /> ADD TO WISH LIST
+                </button>
               </div>
             </div>
             <div className="info">
-              <span>Vendor: Polo</span>
-              <span>Product Type: T-Shirt</span>
-              <span>Tag: T-Shirt, Woman, Top</span>
+              <span>Product Type:{data?.attributes.title}</span>
+              <span>
+                Tag:
+                {" " +
+                  dataCategory?.attributes.categories.data[0].attributes.desc}
+              </span>
             </div>
             <hr />
             <div className="info">

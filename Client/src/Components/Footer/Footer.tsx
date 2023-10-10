@@ -11,7 +11,7 @@ export const Footer = () => {
           <span>Men</span>
           <span>Shoes</span>
           <span>Accessories</span>
-          <span>New Arrivals</span>
+          <span>New Season</span>
         </div>
         <div className="item">
           <h1>Links</h1>

@@ -8,4 +8,5 @@ export const Routes = {
   Contact: "/contact",
   Stores: "/stores",
   Cart: "/cart",
+  WishList: "/wishlist",
 };

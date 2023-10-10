@@ -1,20 +1,24 @@
 ("use strict");
-const stripe = require("stripe")(process.env.STRIPE_KEY);
 /**
  * order controller
  */
 
+const stripe = require("stripe")(process.env.STRIPE_KEY);
 const { createCoreController } = require("@strapi/strapi").factories;
 
-module.exports = createCoreController("api::order.order", ({ strapi }) => ({
-  async create(ctx) {
+interface ctxProps {
+  request: { body: { products: any } };
+  response: { status: number };
+}
+module.exports = createCoreController("api::order.order", () => ({
+  async create(ctx: ctxProps) {
     const { products } = ctx.request.body;
     try {
       const lineItems = await Promise.all(
-        products.map(async (product) => {
+        products.map(async (order) => {
           const item = await strapi
             .service("api::product.product")
-            .findOne(product.id);
+            .findOne(order.id);
 
           return {
             price_data: {
@@ -22,9 +26,9 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
               product_data: {
                 name: item.title,
               },
-              unit_amount: Math.round(item.price * 100),
+              unit_amount: Math.round(item.price * 100), //we multiply because of cents,
             },
-            quantity: product.quantity,
+            quantity: order.quantity,
           };
         })
       );
@@ -33,8 +37,8 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
         shipping_address_collection: { allowed_countries: ["GB", "US"] },
         payment_method_types: ["card"],
         mode: "payment",
-        success_url: process.env.CLIENT_URL + "/cart?success=true",
-        cancel_url: process.env.CLIENT_URL + "/cart?canceled=true",
+        success_url: `${process.env.CLIENT_URL}/cart?success=true`,
+        cancel_url: `${process.env.CLIENT_URL}/cart?canceled=true`,
         line_items: lineItems,
       });
 

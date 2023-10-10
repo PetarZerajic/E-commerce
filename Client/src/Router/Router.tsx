@@ -18,7 +18,8 @@ import { Protector } from "../Utils/Helper/LoginHelper";
 import { Register } from "../Pages/Register/Register";
 import { Cart } from "../Pages/Cart/Cart";
 import "react-toastify/dist/ReactToastify.css";
-import { CartLayout } from "../Layout/CartLayout";
+import { CommonLayout } from "../Layout/CartLayout";
+import { WishList } from "../Pages/WishList/WishList";
 
 const router = createBrowserRouter([
   {
@@ -57,12 +58,16 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: Routes.Cart,
-    element: <CartLayout />,
+    path: Routes.HOME,
+    element: <CommonLayout />,
     children: [
       {
         path: Routes.Cart,
         element: <Cart />,
+      },
+      {
+        path: Routes.WishList,
+        element: <WishList />,
       },
     ],
   },

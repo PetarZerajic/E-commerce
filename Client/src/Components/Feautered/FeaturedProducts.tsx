@@ -23,7 +23,7 @@ export const FeaturedProducts = (props: Props) => {
       </div>
       <div className="bottom-side">
         <>
-          {error && <h2>Woops! Something went wrong. Please try again</h2>}
+          {error && <h2>Whoops! Something went wrong. Please try again</h2>}
           {loading ? (
             <h2>...Loading</h2>
           ) : (

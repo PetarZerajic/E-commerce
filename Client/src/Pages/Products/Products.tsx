@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { List } from "../../Components/List/List";
-import { useParams } from "react-router-dom";
-import "./products.scss";
+import { useLocation, useParams } from "react-router-dom";
 import { useFetch } from "../../Hooks/useFetch";
 import { ImageHelper } from "../../Utils/Helper/ImageHelper";
 import { Box, Slider } from "@mui/material";
 import { QuerySubCategories } from "../../Utils/queryBilder";
 import { ErrorPage } from "../../Error/ErrorPage";
+import "./products.scss";
+import { shoes } from "../../Constants/productsImgs";
 
 export const Products = () => {
   const min = 1;
@@ -56,12 +57,14 @@ export const Products = () => {
             <div className="inputItem" key={item.id}>
               <input
                 type="checkbox"
-                id={item.id}
+                id={item.attributes.title}
                 name={item.attributes.title}
                 value={item.id}
                 onChange={handleChangeCatg}
               />
-              <label htmlFor={item.id}>{item.attributes.title}</label>
+              <label htmlFor={item.attributes.title}>
+                {item.attributes.title}
+              </label>
             </div>
           ))}
         </div>

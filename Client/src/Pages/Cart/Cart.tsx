@@ -10,7 +10,6 @@ import {
   decreaseItem,
 } from "../../Redux/Reducer/cartReducer";
 import { Link, useSearchParams } from "react-router-dom";
-import CircularProgress from "@mui/material/CircularProgress";
 import ArrowRightAltOutlinedIcon from "@mui/icons-material/ArrowRightAltOutlined";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import emptyCart from "../../Assets/emptyCart.jpg";
@@ -18,6 +17,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { makeRequest } from "../../Hooks/useFetch";
 import { Routes } from "../../Router/Routes";
 import { toast } from "react-toastify";
+import { Spinner } from "../../Components/Spinner/Spinner";
 import "./cart.scss";
 
 export const Cart = () => {
@@ -30,13 +30,17 @@ export const Cart = () => {
 
   useEffect(() => {
     dispatch(calculateTotals());
+  }, [cart.products]);
+
+  useEffect(() => {
     if (searchParams.get("success")) {
       toast.success("Payment completed.");
+      dispatch(resetCart());
     }
     if (searchParams.get("canceled")) {
-      toast.error("Something went wrong.");
+      toast.error("Payment is canceled!");
     }
-  }, [cart.products]);
+  }, []);
 
   const handleRemoveFromCart = (id: number) => {
     dispatch(deleteItem({ id }));
@@ -143,11 +147,7 @@ export const Cart = () => {
                 onClick={handlePayment}
                 className={loading ? "disabled-button" : ""}
               >
-                {loading ? (
-                  <CircularProgress size="35px" />
-                ) : (
-                  "PROCEED TO CHECKOUT"
-                )}
+                {loading ? <Spinner /> : "PROCEED TO CHECKOUT"}
               </button>
               <div className="continue-shopping">
                 <Link to={Routes.HOME}>

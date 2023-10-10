@@ -80,6 +80,10 @@
     },
     "oldPrice": {
       "type": "decimal"
+    },
+    "isSale": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

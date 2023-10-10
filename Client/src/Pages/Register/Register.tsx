@@ -8,6 +8,7 @@ import { registerValidation } from "../../Utils/Helper/RegisterValidation";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import "./register.scss";
+import { Spinner } from "../../Components/Spinner/Spinner";
 
 const initialUser = {
   username: "",
@@ -16,6 +17,7 @@ const initialUser = {
 };
 export const Register = () => {
   const [user, setUser] = useState(initialUser);
+  const [loading, setIsLoading] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
   const navigate = useNavigate();
 
@@ -39,6 +41,8 @@ export const Register = () => {
           validationSchema={schema}
           onSubmit={async (values) => {
             const url = `${process.env.REACT_APP_URL}/auth/local/register`;
+            setIsLoading(true);
+
             try {
               if (values.username && values.email && values.password) {
                 const response = await axios.post(url, values);
@@ -55,6 +59,9 @@ export const Register = () => {
               toast.error(error.message, {
                 hideProgressBar: false,
               });
+              setTimeout(() => {
+                setIsLoading(false);
+              }, 6000);
             }
           }}
         >
@@ -102,13 +109,10 @@ export const Register = () => {
                 <ErrorMessage name="password" />
               </div>
               <button
-                type="submit"
-                className={`register-button ${
-                  !isValid || !dirty ? "disabled" : ""
-                }`}
-                disabled={!isValid && !dirty}
+                className={loading ? "loading" : "register-button"}
+                disabled={loading === true}
               >
-                Sign up
+                {loading ? <Spinner /> : "Sign Up"}
               </button>
             </Form>
           )}

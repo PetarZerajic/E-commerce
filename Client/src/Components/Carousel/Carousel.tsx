@@ -1,8 +1,8 @@
 import WestOutlinedIcon from "@mui/icons-material/WestOutlined";
 import EastOutlinedIcon from "@mui/icons-material/EastOutlined";
-import { carouselImages } from "../../Constants/CarouselImages";
-import "./carousel.scss";
 import { useState } from "react";
+import { carouselImgs } from "../../Constants/carouselImgs";
+import "./carousel.scss";
 
 export const Carousel = () => {
   const [currentImage, setCurrentImage] = useState(0);
@@ -22,7 +22,7 @@ export const Carousel = () => {
           transform: `translateX(-${currentImage * 100}vw)`,
         }}
       >
-        {carouselImages.map((image, index) => (
+        {carouselImgs.map((image, index) => (
           <img key={index} src={image} alt="" />
         ))}
       </div>
@@ -35,7 +35,7 @@ export const Carousel = () => {
           <EastOutlinedIcon />
         </div>
         <div className="indicators">
-          {carouselImages.map((_, index) => (
+          {carouselImgs.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentImage(index)}

@@ -65,10 +65,14 @@ body.login-bg {
       text-transform: uppercase;
       cursor: pointer;
     }
-    .disabled {
-      opacity: 0.2;
+    .loading {
+      padding: 10px;
+      background: white;
+      height: 36px;
+      width: 50%;
+      border: none;
+      border-radius: 5px;
     }
-
     .login-button:active {
       background: #395591;
     }

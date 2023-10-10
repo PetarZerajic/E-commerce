@@ -62,12 +62,15 @@ export const Navbar = () => {
               </Link>
             </div>
             <div className="icons">
-              <FavoriteBorderOutlinedIcon />
+              <Link to={Routes.WishList} className="link">
+                <FavoriteBorderOutlinedIcon />
+              </Link>
+
               <div className="cart-icon">
                 <Link to={Routes.Cart} className="link">
                   <ShoppingCartOutlinedIcon />
                 </Link>
-                <span>{products.length}</span>
+                {products.length > 0 && <span>{products.length}</span>}
               </div>
             </div>
             <div className="item">
