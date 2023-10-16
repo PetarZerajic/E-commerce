@@ -1,7 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Products } from "../Pages/Products/Products";
-import { About } from "../Pages/About/About";
-import { Contact } from "../Pages/Contact/Contact";
 import { Stores } from "../Pages/Stores/Stores";
 import { Home } from "../Pages/Home/Home";
 import { Routes } from "./Routes";
@@ -39,14 +37,7 @@ const router = createBrowserRouter([
         path: Routes.Product,
         element: <Protector Component={Product} />,
       },
-      {
-        path: Routes.About,
-        element: <Protector Component={About} />,
-      },
-      {
-        path: Routes.Contact,
-        element: <Protector Component={Contact} />,
-      },
+
       {
         path: Routes.Stores,
         element: <Protector Component={Stores} />,

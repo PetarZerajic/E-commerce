@@ -10,7 +10,7 @@ export const Profile = () => {
   const { jwt } = userData();
 
   return (
-    <Card className="Card" sx={{ boxShadow: 3 }}>
+    <Card className="Card Wrapper">
       <div className="image-section">
         <img
           src={
