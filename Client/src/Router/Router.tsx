@@ -1,9 +1,4 @@
-import {
-  BrowserRouter,
-  Route,
-  RouterProvider,
-  createBrowserRouter,
-} from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Products } from "../Pages/Products/Products";
 import { About } from "../Pages/About/About";
 import { Contact } from "../Pages/Contact/Contact";
@@ -17,9 +12,10 @@ import { ToastContainer } from "react-toastify";
 import { Protector } from "../Utils/Helper/LoginHelper";
 import { Register } from "../Pages/Register/Register";
 import { Cart } from "../Pages/Cart/Cart";
+import { CommonLayout } from "../Layout/CommonLayout";
+import { Profile } from "../Pages/Profile/Profile";
+import { Wishlist } from "../Pages/Wishlist/Wishlist";
 import "react-toastify/dist/ReactToastify.css";
-import { CommonLayout } from "../Layout/CartLayout";
-import { WishList } from "../Pages/WishList/WishList";
 
 const router = createBrowserRouter([
   {
@@ -37,23 +33,23 @@ const router = createBrowserRouter([
       },
       {
         path: Routes.Products,
-        element: <Products />,
+        element: <Protector Component={Products} />,
       },
       {
         path: Routes.Product,
-        element: <Product />,
+        element: <Protector Component={Product} />,
       },
       {
         path: Routes.About,
-        element: <About />,
+        element: <Protector Component={About} />,
       },
       {
         path: Routes.Contact,
-        element: <Contact />,
+        element: <Protector Component={Contact} />,
       },
       {
         path: Routes.Stores,
-        element: <Stores />,
+        element: <Protector Component={Stores} />,
       },
     ],
   },
@@ -63,12 +59,13 @@ const router = createBrowserRouter([
     children: [
       {
         path: Routes.Cart,
-        element: <Cart />,
+        element: <Protector Component={Cart} />,
       },
       {
-        path: Routes.WishList,
-        element: <WishList />,
+        path: Routes.Wishlist,
+        element: <Protector Component={Wishlist} />,
       },
+      { path: Routes.Profile, element: <Protector Component={Profile} /> },
     ],
   },
 ]);

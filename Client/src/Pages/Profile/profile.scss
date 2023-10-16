@@ -1,0 +1,25 @@
+.Card {
+  margin: 100px auto;
+  width: 600px;
+  height: 500px;
+  box-shadow: 4px;
+
+  .image-section {
+    display: flex;
+    margin-top: 50px;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    img {
+      border: 1px solid gray;
+      border-radius: 50%;
+      height: 200px;
+      width: 200px;
+      object-fit: cover;
+    }
+  }
+  .section {
+    text-align: center;
+    margin-top: 40px;
+  }
+}

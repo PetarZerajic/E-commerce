@@ -8,8 +8,8 @@ import { LoginValidation } from "../../Utils/Helper/LoginValidation";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import "./login.scss";
 import { Spinner } from "../../Components/Spinner/Spinner";
+import "./login.scss";
 
 export const Login = () => {
   const initialUser = {

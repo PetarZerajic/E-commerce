@@ -4,10 +4,12 @@
   list-style: none;
 
   .page {
+    display: flex;
+    align-items: center;
     padding: 10px;
+    margin-right: 15px;
     border: 1px solid #dcdcdc;
     border-radius: 6px;
-    margin-right: 10px;
     cursor: pointer;
   }
 
@@ -22,26 +24,5 @@
     a {
       color: #395591;
     }
-  }
-
-  .previous {
-    font-family: sans-serif;
-    padding: 10px;
-    border-radius: 6px;
-    margin-right: 10px;
-    cursor: pointer;
-  }
-
-  .break {
-    padding: 10px;
-  }
-
-  .next {
-    font-family: sans-serif;
-    padding: 10px;
-    border-radius: 6px;
-    margin-right: 10px;
-
-    cursor: pointer;
   }
 }

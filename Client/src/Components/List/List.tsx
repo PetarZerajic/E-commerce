@@ -23,10 +23,11 @@ export const List = (props: ListProps) => {
   const [currentPage, setCurrentPage] = useState(0);
 
   const productsPerPage = 12;
-  const totalPages = Math.ceil(dataProducts.length / productsPerPage);
   const startIndex = currentPage * productsPerPage;
   const endIndex = startIndex + productsPerPage;
   const currentProducts = dataProducts.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(dataProducts.length / productsPerPage);
+
   const handlePageChange = (selectedItem: { selected: number }) => {
     setCurrentPage(selectedItem.selected);
   };

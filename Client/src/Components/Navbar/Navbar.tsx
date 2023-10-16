@@ -1,19 +1,28 @@
 import en from "../../Assets/en.png";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/Store/Store";
 import { Routes } from "../../Router/Routes";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import MenuIcon from "@mui/icons-material/Menu";
+import { ProfileDropdown } from "../Dropdown/ProfileDropdown/ProfileDropdown";
+import { MenuDropdown } from "../Dropdown/MenuDropdown/MenuDropdown";
+import { useState } from "react";
 import "./navbar.scss";
 
 export const Navbar = () => {
   const products = useSelector((state: RootState) => state.cart.products);
-
-  const handleLogout = () => {
-    localStorage.removeItem("user");
+  const [toggleDropDown, setToggleDropDown] = useState({
+    profile: false,
+    menu: false,
+  });
+  const handleToggle = (component: keyof typeof toggleDropDown) => {
+    setToggleDropDown((prevState) => ({
+      ...prevState,
+      [component]: !prevState[component],
+    }));
   };
   return (
     <>
@@ -51,18 +60,14 @@ export const Navbar = () => {
                 Homepage
               </Link>
             </div>
-            <div className="item">
-              <Link className="link" to={Routes.Contact}>
-                Contact
-              </Link>
-            </div>
+
             <div className="item">
               <Link className="link" to={Routes.Stores}>
                 Stores
               </Link>
             </div>
             <div className="icons">
-              <Link to={Routes.WishList} className="link">
+              <Link to={Routes.Wishlist} className="link">
                 <FavoriteBorderOutlinedIcon />
               </Link>
 
@@ -70,15 +75,26 @@ export const Navbar = () => {
                 <Link to={Routes.Cart} className="link">
                   <ShoppingCartOutlinedIcon />
                 </Link>
-                {products.length > 0 && <span>{products.length}</span>}
+                {products.length > 0 && (
+                  <span className="length">{products.length}</span>
+                )}
               </div>
-            </div>
-            <div className="item">
-              <Link className="link" to={Routes.LOGIN}>
-                <button className="logout" onClick={handleLogout}>
-                  Logout
+              <div>
+                <button
+                  className="profile-icon"
+                  onClick={() => handleToggle("profile")}
+                >
+                  <AccountCircleOutlinedIcon />
                 </button>
-              </Link>
+                {toggleDropDown.profile && <ProfileDropdown />}
+                <button
+                  className="menu-icon"
+                  onClick={() => handleToggle("menu")}
+                >
+                  <MenuIcon />
+                  {toggleDropDown.menu && <MenuDropdown />}
+                </button>
+              </div>
             </div>
           </div>
         </div>

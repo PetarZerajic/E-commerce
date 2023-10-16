@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { List } from "../../Components/List/List";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useFetch } from "../../Hooks/useFetch";
 import { ImageHelper } from "../../Utils/Helper/ImageHelper";
 import { Box, Slider } from "@mui/material";
 import { QuerySubCategories } from "../../Utils/queryBilder";
 import { ErrorPage } from "../../Error/ErrorPage";
+import { Spinner } from "../../Components/Spinner/Spinner";
 import "./products.scss";
-import { shoes } from "../../Constants/productsImgs";
 
 export const Products = () => {
   const min = 1;
@@ -113,7 +113,7 @@ export const Products = () => {
         <img className="img" src={handleChangeCatgImg()} alt="" />
         {error && <ErrorPage />}
         {loading ? (
-          <h2>...Loading</h2>
+          <Spinner />
         ) : (
           <List
             catId={catId}

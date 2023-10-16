@@ -1,4 +1,6 @@
 import ReactPaginate from "react-paginate";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import "./pagination.scss";
 
 interface PaginationProps {
@@ -11,12 +13,14 @@ export const Pagination = (props: PaginationProps) => {
 
   return (
     <ReactPaginate
+      previousLabel={<ArrowBackIcon />}
+      nextLabel={<ArrowForwardIcon />}
       pageCount={pageCount}
       onPageChange={handlePageChange}
       containerClassName={"paginate"}
       previousLinkClassName={"page"}
-      breakClassName={"page"}
       nextLinkClassName={"page"}
+      breakClassName={"page"}
       pageClassName={"page"}
       disabledClassName={"disabled"}
       activeClassName={"active"}

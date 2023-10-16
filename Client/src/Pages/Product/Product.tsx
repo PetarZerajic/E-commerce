@@ -20,7 +20,9 @@ export const Product = () => {
   const params = useParams();
   const id = +params.id!;
 
-  const { data, dataCategory, loading } = useFetch(`products/${id}?populate=*`);
+  const { dataProduct, dataCategory, loading } = useFetch(
+    `products/${id}?populate=*`
+  );
 
   const handleChangeQuantity = (operation: operation) => {
     if (operation === "inc") {
@@ -33,16 +35,16 @@ export const Product = () => {
 
   const image =
     process.env.REACT_APP_UPLOAD_URL +
-    data?.attributes.img.data.attributes.url!;
+    dataProduct?.attributes.img.data.attributes.url!;
   const image2 =
     process.env.REACT_APP_UPLOAD_URL +
-    data?.attributes.img2.data.attributes.url!;
+    dataProduct?.attributes.img2.data.attributes.url!;
   const image3 =
     process.env.REACT_APP_UPLOAD_URL +
-    (data?.attributes?.img3?.data?.attributes.url || "");
+    (dataProduct?.attributes?.img3?.data?.attributes.url || "");
   const dynImage =
     process.env.REACT_APP_UPLOAD_URL +
-    data?.attributes[selectImage].data.attributes.url!;
+    dataProduct?.attributes[selectImage].data.attributes.url!;
 
   return (
     <>
@@ -61,9 +63,9 @@ export const Product = () => {
             </div>
           </div>
           <div className="right">
-            <h1 className="title">{data?.attributes.title}</h1>
-            <span className="price">{data?.attributes.price}€</span>
-            <p className="desc">{data?.attributes.desc}</p>
+            <h1 className="title">{dataProduct?.attributes.title}</h1>
+            <span className="price">{dataProduct?.attributes.price}€</span>
+            <p className="desc">{dataProduct?.attributes.desc}</p>
             <div className="quantity">
               <button onClick={() => handleChangeQuantity("dec")}>-</button>
               <span>{quantity}</span>
@@ -72,7 +74,7 @@ export const Product = () => {
 
             <button
               className="add"
-              onClick={() => dispatch(addToCart({ ...data, quantity }))}
+              onClick={() => dispatch(addToCart({ ...dataProduct, quantity }))}
             >
               <ShoppingCartOutlined /> ADD TO CART
             </button>
@@ -85,7 +87,7 @@ export const Product = () => {
               </div>
             </div>
             <div className="info">
-              <span>Product Type:{data?.attributes.title}</span>
+              <span>Product Type:{dataProduct?.attributes.title}</span>
               <span>
                 Tag:
                 {" " +

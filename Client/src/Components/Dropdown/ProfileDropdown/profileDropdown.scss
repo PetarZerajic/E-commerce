@@ -1,0 +1,38 @@
+.dropdown-container {
+  position: absolute;
+  top: 10%;
+  right: 2%;
+  min-width: 220px;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: white;
+  z-index: 999;
+  box-shadow: 2px 0px 7px -5px rgba(0, 0, 0, 0.9);
+
+  .menu {
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    }
+    li {
+      display: flex;
+      list-style: none;
+      padding: 10px;
+      span {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      span:hover {
+        transform: translateX(5px);
+      }
+    }
+  }
+}

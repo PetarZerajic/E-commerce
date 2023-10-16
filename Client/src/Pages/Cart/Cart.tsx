@@ -19,6 +19,8 @@ import { Routes } from "../../Router/Routes";
 import { toast } from "react-toastify";
 import { Spinner } from "../../Components/Spinner/Spinner";
 import "./cart.scss";
+import { CartHelper } from "../../Utils/Helper/CartHelper";
+import { CartItems } from "./CartItems";
 
 export const Cart = () => {
   const [loading, setIsLoading] = useState(false);
@@ -42,18 +44,6 @@ export const Cart = () => {
     }
   }, []);
 
-  const handleRemoveFromCart = (id: number) => {
-    dispatch(deleteItem({ id }));
-  };
-  const handleClearCart = () => {
-    dispatch(resetCart());
-  };
-  const handleIncreaseAmount = (id: number) => {
-    dispatch(increaseItem({ id }));
-  };
-  const handleDecreaseAmount = (id: number) => {
-    dispatch(decreaseItem({ id }));
-  };
   const stripePromise = loadStripe(
     "pk_test_51NyYzFL2GClIm5Y5166ptaF8b2ZHyFmKqw5RokAs2kmyJiH58MQNOJqX7JLtISLVhjgG2WJA6mANkEGe2zxTWSep00CoV8oeFH"
   );
@@ -72,6 +62,14 @@ export const Cart = () => {
       console.log(error);
     }
   };
+
+  const {
+    handleRemoveFromCart,
+    handleClearCart,
+    handleIncreaseAmount,
+    handleDecreaseAmount,
+  } = CartHelper();
+
   return (
     <div className="cart-container">
       {products.length === 0 ? (
@@ -88,53 +86,25 @@ export const Cart = () => {
       ) : (
         <div>
           <div className="titles">
-            <h3 className="product-title">Product</h3>
-            <h3 className="price">Price</h3>
-            <h3 className="quantity">Quantity</h3>
-            <h3 className="total">Total</h3>
+            <h2 className="product-title">Product</h2>
+            <h2 className="price">Price</h2>
+            <h2 className="quantity">Quantity</h2>
+            <h2 className="total">Total</h2>
           </div>
           <div className="cart-items">
             {products &&
               products.map((item) => (
-                <div className="cart-item" key={item.id}>
-                  <div className="cart-product">
-                    <img
-                      src={
-                        process.env.REACT_APP_UPLOAD_URL +
-                        item.attributes.img.data.attributes.url
-                      }
-                      alt=""
-                    />
-                    <div>
-                      <h3>{item.attributes.title}</h3>
-                      <p>{item.attributes.desc}</p>
-                      <button onClick={() => handleRemoveFromCart(item.id!)}>
-                        <DeleteOutlineOutlinedIcon
-                          sx={{ fontSize: "28px", color: "crimson" }}
-                        />
-                      </button>
-                    </div>
-                  </div>
-                  <div className="cart-product-price">
-                    €{item.attributes.price}
-                  </div>
-                  <div className="cart-product-quantity">
-                    <button onClick={() => handleDecreaseAmount(item.id!)}>
-                      -
-                    </button>
-                    <div className="count">{item.quantity}</div>
-                    <button onClick={() => handleIncreaseAmount(item.id!)}>
-                      +
-                    </button>
-                  </div>
-                  <div className="cart-product-total-price">
-                    €{item.attributes.price * item.quantity}
-                  </div>
-                </div>
+                <CartItems
+                  key={item.id}
+                  item={item}
+                  handleRemoveFromCart={handleRemoveFromCart}
+                  handleDecreaseAmount={handleDecreaseAmount}
+                  handleIncreaseAmount={handleIncreaseAmount}
+                />
               ))}
           </div>
           <div className="cart-summary">
-            <button className="clear-btn" onClick={() => handleClearCart()}>
+            <button className="clear-btn" onClick={handleClearCart}>
               Clear Cart
             </button>
             <div className="cart-checkout">

@@ -40,18 +40,18 @@ export const cartSlice = createSlice({
       }
     },
     calculateTotals: (state) => {
-      let amount = 0;
-      let total = 0;
+      let totalAmount = 0;
+      let totalQuantity = 0;
       state.products.forEach((product) => {
         const { price } = product.attributes;
         const { quantity } = product;
 
-        amount += quantity;
-        total += quantity * price;
+        totalQuantity += quantity;
+        totalAmount += quantity * price;
       });
 
-      state.totalAmount = amount;
-      state.totalAmount = total;
+      state.totalQuantity = totalQuantity;
+      state.totalAmount = totalAmount;
     },
     deleteItem: (state, action) => {
       state.products = state.products.filter(

@@ -12,7 +12,7 @@ export const makeRequest = axios.create({
 
 export const useFetch = (url: string) => {
   const [dataProducts, setDataProducts] = useState<IProdcuts[]>([]);
-  const [data, setData] = useState<IProdcuts>();
+  const [dataProduct, setDataPorduct] = useState<IProdcuts>();
   const [dataCategory, setDataCateory] = useState<ICategories>();
   const [dataCategories, setDataCategories] = useState<ICategories[]>([]);
 
@@ -24,7 +24,7 @@ export const useFetch = (url: string) => {
       try {
         setLoading(true);
         const response = await makeRequest.get(url);
-        setData(response.data.data);
+        setDataPorduct(response.data.data);
         setDataProducts(response.data.data);
         setDataCateory(response.data.data);
         setDataCategories(response.data.data);
@@ -37,7 +37,7 @@ export const useFetch = (url: string) => {
   }, [url]);
 
   return {
-    data,
+    dataProduct,
     dataProducts,
     dataCategory,
     dataCategories,
