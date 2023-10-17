@@ -1,5 +1,10 @@
 import { CircularProgress } from "@mui/material";
+import "./spinner.scss";
 
 export const Spinner = () => {
-  return <CircularProgress size="35px" />;
+  return (
+    <div className="spinner">
+      <CircularProgress size="45px" />
+    </div>
+  );
 };

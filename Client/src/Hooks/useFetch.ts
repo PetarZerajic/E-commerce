@@ -31,7 +31,9 @@ export const useFetch = (url: string) => {
       } catch (error) {
         setError(true);
       }
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
     };
     fetchData();
   }, [url]);

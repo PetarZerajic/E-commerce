@@ -93,11 +93,11 @@ export const AvatarProfile = ({
   };
 
   return (
-    <div className="wrapper">
+    <div className="avatar wrapper">
       <label htmlFor="file">
         <DriveFolderUploadOutlinedIcon />
       </label>
-      <input id="file" style={{ display: "none" }} onClick={handleClickOpen} />
+      <input id="file" onClick={handleClickOpen} />
 
       <BootstrapDialog open={open}>
         <DialogTitle sx={{ m: 0, p: 2 }}>Upload Your Image</DialogTitle>
@@ -119,13 +119,9 @@ export const AvatarProfile = ({
           </FormControl>
         </DialogContent>
         <DialogActions>
-          <Button
-            sx={{ border: "1px solid grey" }}
-            onClick={handleSubmit}
-            disabled={!file}
-          >
+          <button onClick={handleSubmit} disabled={!file}>
             Submit
-          </Button>
+          </button>
         </DialogActions>
       </BootstrapDialog>
     </div>
