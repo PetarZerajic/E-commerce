@@ -7,6 +7,7 @@ import { Box, Slider } from "@mui/material";
 import { QuerySubCategories } from "../../Utils/queryBilder";
 import { ErrorPage } from "../../Error/ErrorPage";
 import { Spinner } from "../../Components/Spinner/Spinner";
+import { useLoadingTimer } from "../../Hooks/useLoadingTimer";
 import "./products.scss";
 
 export const Products = () => {
@@ -19,6 +20,8 @@ export const Products = () => {
   const params = useParams();
   const catId = +params.id!;
 
+  const { loading } = useLoadingTimer();
+
   useEffect(() => {
     const debounceTimer = setTimeout(() => {
       setDebouncedValue(rangeValue);
@@ -29,7 +32,7 @@ export const Products = () => {
   }, [rangeValue]);
 
   const { subCategories } = QuerySubCategories(catId);
-  const { dataCategories, loading, error } = useFetch(subCategories);
+  const { dataCategories, error } = useFetch(subCategories);
 
   const { handleChangeCatgImg } = ImageHelper(catId);
 

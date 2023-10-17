@@ -4,12 +4,11 @@ import {
   FavoriteBorderOutlined,
 } from "@mui/icons-material";
 
-import "./product.scss";
 import { useFetch } from "../../Hooks/useFetch";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { addToCart } from "../../Redux/Reducer/cartReducer";
 import { useDispatch } from "react-redux";
-import { Routes } from "../../Router/Routes";
+import "./product.scss";
 
 type operation = "inc" | "dec";
 type initialImage = "img" | "img2" | "img3";
