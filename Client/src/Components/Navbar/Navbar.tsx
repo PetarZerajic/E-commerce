@@ -70,7 +70,6 @@ export const Navbar = () => {
               <Link to={Routes.Wishlist} className="link">
                 <FavoriteBorderOutlinedIcon />
               </Link>
-
               <div className="cart-icon">
                 <Link to={Routes.Cart} className="link">
                   <ShoppingCartOutlinedIcon />
@@ -86,7 +85,15 @@ export const Navbar = () => {
                 >
                   <AccountCircleOutlinedIcon />
                 </button>
-                {toggleDropDown.profile && <ProfileDropdown />}
+                <span
+                  className={
+                    toggleDropDown.profile
+                      ? "profile-dropdown active"
+                      : "profile-dropdown"
+                  }
+                >
+                  {toggleDropDown.profile && <ProfileDropdown />}
+                </span>
                 <button
                   className="menu-icon"
                   onClick={() => handleToggle("menu")}

@@ -1,4 +1,4 @@
-.dropdown-container {
+.profile-dropdown {
   position: absolute;
   top: 10%;
   right: 2%;
@@ -8,6 +8,9 @@
   background-color: white;
   z-index: 999;
   box-shadow: 2px 0px 7px -5px rgba(0, 0, 0, 0.9);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.3s ease;
 
   .menu {
     .user-info {
@@ -35,4 +38,7 @@
       }
     }
   }
+}
+.profile-dropdown.active {
+  transform: scaleY(1);
 }

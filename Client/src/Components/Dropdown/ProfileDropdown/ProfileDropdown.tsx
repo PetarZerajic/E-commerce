@@ -15,12 +15,9 @@ export const ProfileDropdown = () => {
   const handleLogout = () => {
     localStorage.removeItem("user");
   };
-  const handleOpenDashboard = () => {
-    const dashboardUrl = process.env.REACT_APP_ADMIN_URL;
-    window.open(dashboardUrl);
-  };
+
   return (
-    <div className="dropdown-container">
+    <>
       <div className="menu">
         <div className="user-info">
           <img
@@ -36,13 +33,6 @@ export const ProfileDropdown = () => {
         <hr />
 
         <ul>
-          <li onClick={handleOpenDashboard}>
-            <span>
-              <DashboardIcon />
-              Dashboard
-            </span>
-          </li>
-
           <li>
             <Link className="link" to={Routes.Profile}>
               <span>
@@ -60,6 +50,6 @@ export const ProfileDropdown = () => {
           </li>
         </ul>
       </div>
-    </div>
+    </>
   );
 };

@@ -25,7 +25,7 @@ export const Products = () => {
   useEffect(() => {
     const debounceTimer = setTimeout(() => {
       setDebouncedValue(rangeValue);
-    }, 1000);
+    }, 500);
     return () => {
       clearTimeout(debounceTimer);
     };
