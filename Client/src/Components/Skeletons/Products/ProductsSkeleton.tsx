@@ -5,8 +5,7 @@ export const ProductsSkeleton = () => {
     <Box
       sx={{
         width: 300,
-        marginRight: 0.5,
-        m: 3,
+        marginBottom: "50px",
       }}
     >
       <Skeleton variant="rectangular" animation="wave" height={400} />

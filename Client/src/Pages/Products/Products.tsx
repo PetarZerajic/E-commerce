@@ -6,8 +6,6 @@ import { ImageHelper } from "../../Utils/Helper/ImageHelper";
 import { Box, Slider } from "@mui/material";
 import { QuerySubCategories } from "../../Utils/queryBilder";
 import { ErrorPage } from "../../Error/ErrorPage";
-import { Spinner } from "../../Components/Spinner/Spinner";
-import { useLoadingTimer } from "../../Hooks/useLoadingTimer";
 import "./products.scss";
 
 export const Products = () => {
@@ -19,8 +17,6 @@ export const Products = () => {
   const [selectSubCatg, setSelectSubCatg] = useState<number[]>([]);
   const params = useParams();
   const catId = +params.id!;
-
-  const { loading } = useLoadingTimer();
 
   useEffect(() => {
     const debounceTimer = setTimeout(() => {
@@ -115,17 +111,13 @@ export const Products = () => {
       <div className="right">
         <img className="img" src={handleChangeCatgImg()} alt="" />
         {error && <ErrorPage />}
-        {loading ? (
-          <Spinner />
-        ) : (
-          <List
-            catId={catId}
-            minPirce={debouncedValue[0]}
-            maxPrice={debouncedValue[1]}
-            sort={sort}
-            selectSubCatg={selectSubCatg}
-          />
-        )}
+        <List
+          catId={catId}
+          minPirce={debouncedValue[0]}
+          maxPrice={debouncedValue[1]}
+          sort={sort}
+          selectSubCatg={selectSubCatg}
+        />
       </div>
     </div>
   );

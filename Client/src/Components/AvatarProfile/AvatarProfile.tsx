@@ -4,15 +4,14 @@ import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUpload
 import { toast } from "react-toastify";
 import { BootstrapDialog } from "../../Utils/dialog";
 import CloseIcon from "@mui/icons-material/Close";
-import "./avatarProfile.scss";
 import {
   DialogActions,
   DialogContent,
   DialogTitle,
   FormControl,
   IconButton,
-  Button,
 } from "@mui/material";
+import "./avatarProfile.scss";
 
 interface Iprops {
   userId: number;
