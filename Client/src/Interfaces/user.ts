@@ -11,6 +11,16 @@ export interface UserProps {
   username: string;
   email: string;
   avatarUrl: string;
+  avatarId: number;
   createdAt: string;
   jwt: string;
+}
+export interface UserReview {
+  id?: number;
+  username?: string;
+  count?: number | null;
+  email?: string;
+  text?: string;
+  createdAt?: string;
+  stars?: number | undefined;
 }

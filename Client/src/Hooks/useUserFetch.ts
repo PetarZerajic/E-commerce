@@ -5,6 +5,7 @@ import axios from "axios";
 
 export const useUserFetch = () => {
   const [user, setUser] = useState<UserProps>();
+  const [users, setUsers] = useState<UserProps[]>([]);
   const [isUserUpdated, setIsUserUpdated] = useState(false);
   const { jwt } = userData();
 
@@ -26,5 +27,18 @@ export const useUserFetch = () => {
     getProfileDate();
   }, [jwt, isUserUpdated]);
 
-  return { user, setIsUserUpdated };
+  useEffect(() => {
+    const getAllUsers = async () => {
+      const url = `${process.env.REACT_APP_URL}/users`;
+      try {
+        const response = await axios.get(url);
+        setUsers(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getAllUsers();
+  }, []);
+
+  return { user, users, setIsUserUpdated };
 };

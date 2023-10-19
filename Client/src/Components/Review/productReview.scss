@@ -1,0 +1,48 @@
+.product-rating {
+  h2 {
+    font-family: sans-serif;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .input .MuiOutlinedInput-root {
+      width: 60rem;
+      margin-top: 10px;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      border-radius: 12px;
+    }
+
+    button {
+      width: 100px;
+      height: 30px;
+      background-color: #2879fe;
+      border: none;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  }
+  .reviews {
+    h2 {
+      margin-bottom: 30px;
+    }
+    .review {
+      margin-bottom: 40px;
+      width: 50%;
+      .customer {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+        img {
+          width: 40px;
+          height: 40px;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+}
