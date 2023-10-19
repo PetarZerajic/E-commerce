@@ -12,7 +12,6 @@ import { Register } from "../Pages/Register/Register";
 import { Cart } from "../Pages/Cart/Cart";
 import { CommonLayout } from "../Layout/CommonLayout";
 import { Profile } from "../Pages/Profile/Profile";
-import { Wishlist } from "../Pages/Wishlist/Wishlist";
 import "react-toastify/dist/ReactToastify.css";
 
 const router = createBrowserRouter([
@@ -51,10 +50,6 @@ const router = createBrowserRouter([
       {
         path: Routes.Cart,
         element: <Protector Component={Cart} />,
-      },
-      {
-        path: Routes.Wishlist,
-        element: <Protector Component={Wishlist} />,
       },
       { path: Routes.Profile, element: <Protector Component={Profile} /> },
     ],
