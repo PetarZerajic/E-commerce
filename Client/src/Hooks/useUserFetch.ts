@@ -10,7 +10,7 @@ export const useUserFetch = () => {
   const { jwt } = userData();
 
   useEffect(() => {
-    const getProfileDate = async () => {
+    const getUser = async () => {
       const url = `${process.env.REACT_APP_URL}/users/me`;
       try {
         const response = await axios.get(url, {
@@ -24,7 +24,7 @@ export const useUserFetch = () => {
         console.log(error);
       }
     };
-    getProfileDate();
+    getUser();
   }, [jwt, isUserUpdated]);
 
   useEffect(() => {
