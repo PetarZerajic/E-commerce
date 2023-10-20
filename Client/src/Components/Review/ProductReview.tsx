@@ -22,7 +22,7 @@ export const ProductReview = (props: IProps) => {
   } = useReviewFetch(props);
 
   const { users } = useUserFetch();
-  console.log(review);
+
   return (
     <div className="product-rating">
       {isReviewAdded ? null : (
@@ -33,6 +33,7 @@ export const ProductReview = (props: IProps) => {
             <div>
               <Rating
                 defaultValue={review.stars}
+                precision={0.5}
                 onChange={(event, newValue) => handleRating(newValue!)}
               />
             </div>
@@ -66,7 +67,7 @@ export const ProductReview = (props: IProps) => {
                   />
                   <span>{item.username}</span>
                 </div>
-                <Rating readOnly value={item.stars} />
+                <Rating readOnly precision={0.5} value={item.stars} />
                 <p>
                   Reviewed at:{" "}
                   {new Date(item.createdAt!).toLocaleDateString("sr")}

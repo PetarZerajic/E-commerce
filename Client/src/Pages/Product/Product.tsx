@@ -21,7 +21,7 @@ export const Product = () => {
   const [selectImage, setSelectImage] = useState<initialImage>("img");
   const [quantity, setQuantity] = useState<number>(0);
   const [rating, setRating] = useState<UserReview>({
-    stars: undefined,
+    stars: 0,
     count: 0,
   });
   const params = useParams();
@@ -86,7 +86,7 @@ export const Product = () => {
               <p className="desc">{dataProduct?.attributes.desc}</p>
 
               <div className="rating">
-                <Rating defaultValue={rating.stars} />
+                <Rating readOnly precision={0.5} defaultValue={rating.stars} />
                 <span>{`${
                   rating.count! > 1
                     ? `${rating.count} ratings`
