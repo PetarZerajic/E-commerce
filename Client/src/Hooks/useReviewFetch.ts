@@ -17,9 +17,7 @@ export const useReviewFetch = ({ productId, token, setRating }: IProps) => {
   const [review, setReview] = useState<UserReview>(initialValue);
   const [updateReviews, setUpdateReviews] = useState(false);
   const [isReviewAdded, setIsReviewAdded] = useState(false);
-  const roundToHalf = (number: number) => {
-    return Math.round(number * 2) / 2;
-  };
+
   useEffect(() => {
     const getReviews = async () => {
       try {

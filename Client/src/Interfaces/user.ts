@@ -18,7 +18,7 @@ export interface UserProps {
 export interface UserReview {
   id?: number;
   username?: string;
-  count?: number | null;
+  count?: number | undefined;
   email?: string;
   text?: string;
   createdAt?: string;

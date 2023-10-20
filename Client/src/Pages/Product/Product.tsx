@@ -1,4 +1,4 @@
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import {
   ShoppingCartOutlined,
   FavoriteBorderOutlined,
@@ -10,8 +10,9 @@ import { useDispatch } from "react-redux";
 import { ProductReview } from "../../Components/Review/ProductReview";
 import { userData } from "../../Utils/Helper/LoginHelper";
 import "./product.scss";
-import { Rating } from "react-simple-star-rating";
+
 import { UserReview } from "../../Interfaces/user";
+import { Rating } from "@mui/material";
 
 type operation = "inc" | "dec";
 type initialImage = "img" | "img2" | "img3";
@@ -85,7 +86,7 @@ export const Product = () => {
               <p className="desc">{dataProduct?.attributes.desc}</p>
 
               <div className="rating">
-                <Rating size={24} readonly initialValue={rating.stars} />
+                <Rating defaultValue={rating.stars} />
                 <span>{`${
                   rating.count! > 1
                     ? `${rating.count} ratings`

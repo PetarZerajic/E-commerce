@@ -1,7 +1,6 @@
-import { TextField } from "@mui/material";
+import { Rating, TextField } from "@mui/material";
 import { UserReview } from "../../Interfaces/user";
 import no_image from "../../Assets/noImage.jpg";
-import { Rating } from "react-simple-star-rating";
 import { useReviewFetch } from "../../Hooks/useReviewFetch";
 import { useUserFetch } from "../../Hooks/useUserFetch";
 import "./productReview.scss";
@@ -23,7 +22,7 @@ export const ProductReview = (props: IProps) => {
   } = useReviewFetch(props);
 
   const { users } = useUserFetch();
-
+  console.log(review);
   return (
     <div className="product-rating">
       {isReviewAdded ? null : (
@@ -33,9 +32,8 @@ export const ProductReview = (props: IProps) => {
             <label htmlFor="text">Overall rating</label>
             <div>
               <Rating
-                size={24}
-                initialValue={review.stars}
-                onClick={handleRating}
+                defaultValue={review.stars}
+                onChange={(event, newValue) => handleRating(newValue!)}
               />
             </div>
             <TextField
@@ -68,7 +66,7 @@ export const ProductReview = (props: IProps) => {
                   />
                   <span>{item.username}</span>
                 </div>
-                <Rating size={24} readonly initialValue={item.stars} />
+                <Rating readOnly value={item.stars} />
                 <p>
                   Reviewed at:{" "}
                   {new Date(item.createdAt!).toLocaleDateString("sr")}
