@@ -1,7 +1,6 @@
 # Strapi Starter Typescript,Sass and Strapi
 
 note:This project was started with love and passion for programming.
-![demo-site](https://www.loom.com/share/58702124a8d74d90a03bb807787596e6?sid=49f3c515-0700-4e48-b1c7-780a4b1cf9e1)
 
 ## Getting Started
 
