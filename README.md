@@ -1,4 +1,4 @@
-# Strapi Starter Typescript,Sass and Strapi
+# Strapi Starter TypeScript,Sass and Strapi
 
 note:This project was started with love and passion for programming.
 
@@ -60,6 +60,7 @@ In the root of our project we have our `export-data.tar.gz` file. We will use it
 ```bash
   npm run strapi import -- -f export-data.tar.gz
 ```
+You will be asked and warned to delete all data in your database. Click **'yes'**.
 
 This will import your data locally. Log back into your admin panel to see the newly imported data.
 
@@ -103,7 +104,7 @@ Once you have your token add it to your `REACT_APP_API_TOKEN` variable name in t
 
 When you're done with the token, it's important to make a modification to display the product rating stars.
 
-Inside your Strapi Admin Panel navigate to Settings -> USERS AND PERMISSIONS PLUGIN and click on the `Roles` go to `Authenticated`.
+Inside your Strapi Admin Panel navigate to Settings -> USERS & PERMISSIONS PLUGIN and click on the `Roles` and go to `Authenticated`.
 
 In Permissions lets give the following access.
 
