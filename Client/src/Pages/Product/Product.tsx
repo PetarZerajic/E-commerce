@@ -86,7 +86,7 @@ export const Product = () => {
               <p className="desc">{dataProduct?.attributes.desc}</p>
 
               <div className="rating">
-                <Rating readOnly precision={0.5} defaultValue={rating.stars} />
+                <Rating readOnly precision={0.5} value={rating.stars} />
                 <span>{`${
                   rating.count! > 1
                     ? `${rating.count} ratings`

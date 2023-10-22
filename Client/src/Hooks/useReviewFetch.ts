@@ -9,12 +9,8 @@ interface IProps {
   setRating: React.Dispatch<React.SetStateAction<UserReview>>;
 }
 export const useReviewFetch = ({ productId, token, setRating }: IProps) => {
-  const initialValue = {
-    stars: 0,
-    text: "",
-  };
   const [reviews, setReviews] = useState<UserReview[]>([]);
-  const [review, setReview] = useState<UserReview>(initialValue);
+  const [review, setReview] = useState<UserReview>({ stars: 0, text: "" });
   const [updateReviews, setUpdateReviews] = useState(false);
   const [isReviewAdded, setIsReviewAdded] = useState(false);
 
@@ -31,7 +27,6 @@ export const useReviewFetch = ({ productId, token, setRating }: IProps) => {
         const {
           data: { data, hasReviewAdded },
         } = response;
-
         const averageRating =
           data.reduce(
             (acc: number, review: { stars: number }) =>
@@ -43,7 +38,7 @@ export const useReviewFetch = ({ productId, token, setRating }: IProps) => {
         setReviews(data.reverse());
         setIsReviewAdded(hasReviewAdded);
         setUpdateReviews(false);
-        setReview(initialValue);
+        setReview({});
       } catch (error) {
         console.log({ error });
       }
@@ -54,7 +49,7 @@ export const useReviewFetch = ({ productId, token, setRating }: IProps) => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!review?.stars) {
+    if (!review.stars) {
       toast.error("Review stars are required* ");
       return;
     }

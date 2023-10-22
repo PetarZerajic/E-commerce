@@ -41,15 +41,15 @@ export const Register = () => {
           validationSchema={schema}
           onSubmit={async (values) => {
             const url = `${process.env.REACT_APP_URL}/auth/local/register`;
-            setIsLoading(true);
-
             try {
+              setIsLoading(true);
+
               if (values.username && values.email && values.password) {
                 const response = await axios.post(url, values);
 
                 if (response) {
                   toast.success("Registered successfully!", {
-                    hideProgressBar: false,
+                    autoClose: 3000,
                   });
                   setUser(initialUser);
                   navigate(Routes.LOGIN);
@@ -61,11 +61,11 @@ export const Register = () => {
               });
               setTimeout(() => {
                 setIsLoading(false);
-              }, 6000);
+              }, 3000);
             }
           }}
         >
-          {({ values, isValid, dirty, handleChange, handleSubmit }) => (
+          {({ values, handleChange, handleSubmit }) => (
             <Form className="form" onSubmit={handleSubmit}>
               <h2>Sign up:</h2>
               <Field

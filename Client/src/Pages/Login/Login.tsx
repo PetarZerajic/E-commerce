@@ -43,29 +43,27 @@ export const Login = () => {
           initialValues={initialUser}
           onSubmit={async (values) => {
             const url = `${process.env.REACT_APP_URL}/auth/local`;
-            setIsLoading(true);
             try {
+              setIsLoading(true);
+
               if (values.identifier && values.password) {
                 const response = await axios.post(url, values);
                 const { data } = response;
 
                 if (data.jwt) {
                   setUserToken(data);
-                  toast.success("Logged in successfully!", {
-                    hideProgressBar: false,
-                  });
+                  toast.success("Logged in successfully!", { autoClose: 3000 });
                   setUser(initialUser);
                   setIsLoading(false);
                   navigate(Routes.HOME);
                 }
               }
             } catch (error: any) {
-              toast.error(error.message, {
-                hideProgressBar: false,
-              });
+              toast.error(error.message, { autoClose: 2000 });
+
               setTimeout(() => {
                 setIsLoading(false);
-              }, 6000);
+              }, 3000);
             }
           }}
           validationSchema={schema}

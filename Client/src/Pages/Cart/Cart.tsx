@@ -33,17 +33,11 @@ export const Cart = () => {
   useEffect(() => {
     dispatch(calculateTotals());
   }, [cart.products]);
-
   useEffect(() => {
     if (searchParams.get("success")) {
-      toast.success("Payment completed.");
       dispatch(resetCart());
     }
-    if (searchParams.get("canceled")) {
-      toast.error("Payment is canceled!");
-    }
   }, []);
-
   const stripePromise = loadStripe(
     "pk_test_51NyYzFL2GClIm5Y5166ptaF8b2ZHyFmKqw5RokAs2kmyJiH58MQNOJqX7JLtISLVhjgG2WJA6mANkEGe2zxTWSep00CoV8oeFH"
   );

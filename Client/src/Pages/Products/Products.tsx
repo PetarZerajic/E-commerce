@@ -7,29 +7,20 @@ import { Box, Slider } from "@mui/material";
 import { QuerySubCategories } from "../../Utils/queryBilder";
 import { ErrorPage } from "../../Error/ErrorPage";
 import "./products.scss";
+import { useDebounceTimer } from "../../Hooks/useDebounceTimer";
 
 export const Products = () => {
   const min = 1;
   const max = 500;
-  const [debouncedValue, setDebouncedValue] = useState<number[]>([min, max]);
   const [rangeValue, setRangeValue] = useState<number[]>([min, max]);
   const [sort, setSort] = useState<string | null>(null);
   const [selectSubCatg, setSelectSubCatg] = useState<number[]>([]);
   const params = useParams();
   const catId = +params.id!;
 
-  useEffect(() => {
-    const debounceTimer = setTimeout(() => {
-      setDebouncedValue(rangeValue);
-    }, 600);
-    return () => {
-      clearTimeout(debounceTimer);
-    };
-  }, [rangeValue]);
-
+  const { debouncedValue } = useDebounceTimer({ min, max, rangeValue });
   const { subCategories } = QuerySubCategories(catId);
   const { dataCategories, error } = useFetch(subCategories);
-
   const { handleChangeCatgImg } = ImageHelper(catId);
 
   const handleChangeCatg = (event: React.ChangeEvent<HTMLInputElement>) => {

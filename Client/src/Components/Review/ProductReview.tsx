@@ -13,16 +13,14 @@ interface IProps {
 
 export const ProductReview = (props: IProps) => {
   const {
-    reviews,
     review,
+    reviews,
     isReviewAdded,
     handleSubmit,
     handleRating,
     handleReviewText,
   } = useReviewFetch(props);
-
   const { users } = useUserFetch();
-
   return (
     <div className="product-rating">
       {isReviewAdded ? null : (
@@ -32,9 +30,9 @@ export const ProductReview = (props: IProps) => {
             <label htmlFor="text">Overall rating</label>
             <div>
               <Rating
-                defaultValue={review.stars}
                 precision={0.5}
-                onChange={(event, newValue) => handleRating(newValue!)}
+                value={review.stars || null}
+                onChange={(event, newValue) => handleRating(Number(newValue))}
               />
             </div>
             <TextField
@@ -67,7 +65,7 @@ export const ProductReview = (props: IProps) => {
                   />
                   <span>{item.username}</span>
                 </div>
-                <Rating readOnly precision={0.5} value={item.stars} />
+                <Rating readOnly precision={0.5} value={Number(item.stars)} />
                 <p>
                   Reviewed at:{" "}
                   {new Date(item.createdAt!).toLocaleDateString("sr")}
