@@ -1,6 +1,6 @@
-# Strapi Starter TypeScript,Sass and Strapi
+# Strapi Starter TypeScript, Sass and Strapi
 
-note:This project was started with love and passion for programming.
+note: This project was started with love and passion for programming.
 
 https://github.com/PetarZerajic/E-commerce/assets/116806174/722b2378-b6d9-4cc3-a187-19352fd731d5
 
