@@ -46,7 +46,10 @@
     h3 {
       font-weight: 400;
     }
-
+    p {
+      max-width: 600px;
+      text-align: justify;
+    }
     .delete-item {
       border: none;
       margin-top: 0.7rem;
