@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { Routes } from "../../../Router/Routes";
 import { userData } from "../../../Utils/Helper/LoginHelper";
 import LogoutIcon from "@mui/icons-material/Logout";
-import DashboardIcon from "@mui/icons-material/Dashboard";
 import Person2Icon from "@mui/icons-material/Person2";
 import no_image from "../../../Assets/noImage.jpg";
 import { useUserFetch } from "../../../Hooks/useUserFetch";

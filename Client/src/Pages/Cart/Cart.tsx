@@ -38,9 +38,7 @@ export const Cart = () => {
       dispatch(resetCart());
     }
   }, []);
-  const stripePromise = loadStripe(
-    "pk_test_51NyYzFL2GClIm5Y5166ptaF8b2ZHyFmKqw5RokAs2kmyJiH58MQNOJqX7JLtISLVhjgG2WJA6mANkEGe2zxTWSep00CoV8oeFH"
-  );
+  const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY!);
   const handlePayment = async () => {
     setIsLoading(true);
     try {
