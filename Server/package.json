@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@koa/cors": "^5.0.0",
-    "@strapi/plugin-i18n": "4.20.5",
-    "@strapi/plugin-users-permissions": "4.24.2",
+    "@strapi/plugin-i18n": "4.25.13",
+    "@strapi/plugin-users-permissions": "4.25.14",
     "@strapi/strapi": "4.25.14",
     "better-sqlite3": "8.6.0",
     "stripe": "^13.9.0"
