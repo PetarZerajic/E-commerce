@@ -12,7 +12,7 @@
   "dependencies": {
     "@koa/cors": "^5.0.0",
     "@strapi/plugin-i18n": "4.26.2",
-    "@strapi/plugin-users-permissions": "4.26.2",
+    "@strapi/plugin-users-permissions": "5.45.0",
     "@strapi/strapi": "5.52.1",
     "better-sqlite3": "8.6.0",
     "stripe": "^13.9.0"
